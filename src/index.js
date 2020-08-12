@@ -33,7 +33,7 @@ setInterval(() => {
 	if (out.indexOf("Already up to date.") !== -1) return;
 	processArticles();
 	console.log(`New out: ${out}`);
-}, 30_000);
+}, 30000);
 
 var articles = [];
 const articlesRoot = path.join(__dirname, "..", "data", "articles");
