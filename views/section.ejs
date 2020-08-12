@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include("./partials/head.ejs", {title}) %>
+</head>
+<body>
+	<%- include("./partials/nav.ejs") %>
+
+	<main>
+		<%- include("./partials/art.ejs") %>
+
+		<h2><%- title %></h2>
+
+		<p class="tagline"><%- description %></p>
+
+		<div class="articles">
+			<% for (const article of
+					articles.filter(_ => _.tags.indexOf(tag) !== -1).sort((a, b) => b.date_js - a.date_js, 0)
+				) { %>
+				<a href="/article/<%- article.slug %>">
+					<h4><%- article.authors %></h4>
+					<h3><%- article.title %></h3>
+				</a>
+			<% } %>
+		</div>
+	</main>
+
+	<%- include("./partials/footer.ejs") %>
+</body>
+</html>

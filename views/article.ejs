@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include("./partials/head.ejs", {title: article.title}) %>
+</head>
+<body>
+	<%- include("./partials/nav.ejs") %>
+
+	<main>
+		<h2 class="article_title"><%- article.title %></h2>
+		<h3 class="article_authors"><%- article.authors %> &bull; <%- months[article.date.month - 1] %> <%- article.date.day %>, <%- article.date.year %></h3>
+		
+		<% if (article.thumbnail) { %>
+			<img src="<%- article.thumbnail %>" class="thumbnail">
+		<% } %>
+
+		<div class="article_content">
+			<%- article.rendered %>
+		</div>
+	</main>
+
+	<%- include("./partials/footer.ejs") %>
+</body>
+</html>
