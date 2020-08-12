@@ -163,4 +163,10 @@ app.get("/article/:slug", (req, res) => {
 	});
 });
 
-app.listen(config().port);
+app.listen(config().port, "0.0.0.0", (err, address) => {
+	if (err) {
+		console.error(err);
+		process.exit(1);
+	}
+	console.info(`server listening on ${address}!`)
+});
