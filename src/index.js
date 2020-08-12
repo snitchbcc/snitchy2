@@ -168,5 +168,5 @@ app.listen(config().port, "0.0.0.0", (err, address) => {
 		console.error(err);
 		process.exit(1);
 	}
-	console.info(`server listening on ${address}!`)
+	console.info(`server listening on ${address}!`);
 });
