@@ -170,3 +170,20 @@ app.listen(config().port, "0.0.0.0", (err, address) => {
 	}
 	console.info(`server listening on ${address}!`);
 });
+
+if (config().redirect_from_http)
+require("http")
+.createServer(function(req, res) {
+  const {
+	headers: { host },
+	url
+  } = req;      
+  if (host) {
+	const redirectUrl = `https://${host.split(":")[0]}${url}`;
+	res.writeHead(301, {
+	  Location: redirectUrl
+	});
+	res.end();
+  }
+})
+.listen(80);
