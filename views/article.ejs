@@ -17,6 +17,21 @@
 		<div class="article_content">
 			<%- article.rendered %>
 		</div>
+
+		<% if (article.series) { %>
+			<div class="article_series">
+				<p>This article is part of the <strong><%= article.series %></strong> series.</p>
+
+				<div>
+					<% var i = 1 %>
+					<% for (const a of getSeries(article.series)) { %>
+						<a href="/article/<%- a.slug %>" title="<%= a.title %>" class="<%- a.slug === article.slug ? 'current' : '' %>"><%= i %></a>
+
+						<% i++ %>
+					<% } %>
+				</div>
+			</div>
+		<% } %>
 	</main>
 
 	<%- include("./partials/footer.ejs") %>

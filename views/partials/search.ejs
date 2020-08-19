@@ -1,0 +1,1 @@
+<input type="text" class="search" placeholder="Search..." value="<%= typeof value === 'string' ? value : '' %>" onkeydown="event.key === 'Enter' ? location.replace(`/search?q=${this.value}`) : 0">

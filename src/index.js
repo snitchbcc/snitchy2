@@ -26,13 +26,17 @@ const app = fastify(config().https ? {
 } : {});
 
 setInterval(() => {
-	const out = childProcess.execSync("git pull", {
-		cwd: path.join(__dirname, "..", "data", "articles")
-	});
+	try {
+		const out = childProcess.execSync("git pull", {
+			cwd: path.join(__dirname, "..", "data", "articles")
+		});
 
-	if (out.indexOf("Already up to date.") !== -1) return;
-	processArticles();
-	console.log(`New out: ${out}`);
+		if (out.indexOf("Already up to date.") !== -1) return;
+		processArticles();
+		console.log(`New out: ${out}`);
+	} catch (err) {
+		console.error(`Encountered error: ${err}`);
+	}
 }, 30000);
 
 var articles = [];
@@ -60,6 +64,7 @@ function processArticles() {
 					thumbnail: fm.thumbnail,
 					date_js: new Date(parseInt(year), parseInt(month), fm.attributes.date),
 					tags: fm.attributes.tags,
+					series: fm.attributes.series,
 					body: fm.body,
 					rendered: marked(fm.body)
 				});
@@ -78,6 +83,9 @@ processArticles();
 function render(name, data) {
 	return ejs.renderFile(path.join(__dirname, "..", "views", name), {
 		months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"],
+		getSeries(series) {
+			return articles.filter(_ => _.series === series).sort((a, b) => a.date_js - b.date_js, 0);
+		},
 		...data
 	}, {
 		cache: false
@@ -92,6 +100,18 @@ app.get("/", (req, res) => {
 
 		title: "The Latest",
 		description: "Democracy bumps into things in darkness."
+	});
+});
+
+app.get("/search", (req, res) => {
+	if (!req.query.q)
+		return res.redirect("/");
+
+	res.type("text/html").code(200);
+	return render("search.ejs", {
+		articles,
+
+		query: req.query.q
 	});
 });
 

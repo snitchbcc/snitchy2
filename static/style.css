@@ -118,7 +118,7 @@ nav {
 		display: inline-block;
 	}
 
-	#baron_art {
+	#top_right {
 		display: none;
 	}
 }
@@ -141,57 +141,58 @@ main {
 	padding: 40px;
 }
 
-#baron_art {
+#top_right {
 	position: absolute;
 
 	right: 40px;
 	top: 40px;
 
-	padding: 20px;
+	z-index: 10;
+}
 
+#top_right .search {
+	margin-left: 50%;
+
+	width: calc(50% - 32px);
+}
+
+.baron_art {
+	z-index: 1;
+	transition: 0.2s transform ease-in-out;
+}
+
+.baron_art>* {
 	width: 200px;
 	height: 100px;
 
-	color: white;
-	background-size: cover;
-	background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("https://cdn.discordapp.com/attachments/626743491724312576/741162966828974170/20200701_235349.jpg");
-	/* background-color: black; */
-
-	z-index: 1;
-	cursor: pointer;
-	transition: 0.2s transform ease-in-out;
-}
-/* 
-#baron_art.large {
-	top: 0px;
-	left: 0px;
-
-	width: calc(100% - 40px);
-	height: 500px;
-
-	color: transparent;
-
-	opacity: 0.5;
-	pointer-events: none;
-
-	mask-image: gradient(linear, left top, left bottom, 
-    from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
-	-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, 
-	from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
-	
-	overflow: hidden;
-} */
-
-#baron_art:hover {
-	transform: scale(1.01);
+	object-fit: cover;
 }
 
-#baron_art>h3 {
-	margin: 0;
+@media only screen and (max-width: 1200px) {
+	.baron_art>* {
+		width: 150px;
+		height: 75px;
+	}
+}
+
+.search {
+	margin-bottom: 10px;
+
+	border: 2px solid black;
+
+	padding: 10px 14px;
+
+	font-size: 14pt;
+	font-family: "Inter";
+	font-weight: 600;
+
+	outline: none;
 }
 
 h2 {
 	position: relative;
+
+	/* display: inline-block; */
 
 	margin: 0;
 	margin-bottom: 20px;
@@ -224,6 +225,29 @@ h2.article_title {
 	margin-bottom: 50px;
 
 	font-size: 20pt;
+}
+
+.article_series {
+	margin-top: 40px;
+
+	border: 2px solid black;
+
+	padding: 20px;
+}
+
+.article_series>p {
+	margin-top: 0;
+}
+
+.article_series>div>* {
+	margin-right: 10px;
+	
+	font-size: 15pt;
+	text-decoration: none;
+}
+
+.article_series>div>.current {
+	font-weight: 900;
 }
 
 p {

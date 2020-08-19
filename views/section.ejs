@@ -7,8 +7,11 @@
 	<%- include("./partials/nav.ejs") %>
 
 	<main>
-		<%- include("./partials/art.ejs") %>
-
+		<div id="top_right">
+			<%- include("./partials/search.ejs") %>
+			<%- include("./partials/art.ejs") %>
+		</div>
+	
 		<h2><%- title %></h2>
 
 		<p class="tagline"><%- description %></p>
