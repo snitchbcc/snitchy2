@@ -74,7 +74,7 @@ function processArticles() {
 	}
 }
 
-app.register(require("fastify-static"), {
+app.register(require("fastify-auto-push").staticServe, {
 	root: path.join(__dirname, "..", "static"),
 })  
 
