@@ -61,19 +61,22 @@ function processArticles() {
 						month: parseInt(month),
 						day: fm.attributes.date
 					},
-					thumbnail: fm.thumbnail,
+					thumbnail: fm.attributes.thumbnail,
 					date_js: new Date(parseInt(year), parseInt(month), fm.attributes.date),
 					tags: fm.attributes.tags,
 					series: fm.attributes.series,
 					body: fm.body,
 					rendered: marked(fm.body)
 				});
-				// console.log(`${year}/${month}/${article}`);
 			}
 		}
 	}
 }
 
+app.register(
+	require("fastify-compress"),
+	{ global: true }
+);
 app.register(require("fastify-auto-push").staticServe, {
 	root: path.join(__dirname, "..", "static"),
 })  

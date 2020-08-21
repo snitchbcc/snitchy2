@@ -11,7 +11,7 @@
 		<h3 class="article_authors"><%- article.authors %> &bull; <%- months[article.date.month - 1] %> <%- article.date.day %>, <%- article.date.year %></h3>
 		
 		<% if (article.thumbnail) { %>
-			<img src="<%- article.thumbnail %>" class="thumbnail">
+			<img src="<%- article.thumbnail %>" class="article_thumbnail">
 		<% } %>
 
 		<div class="article_content">

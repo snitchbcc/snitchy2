@@ -17,16 +17,7 @@
 			<p>Zero results found!</p>
 		<% } else { %>
 
-		<div class="articles">
-			<% for (const article of
-					as
-				) { %>
-				<a href="/article/<%- article.slug %>">
-					<h4><%- article.authors %></h4>
-					<h3><%- article.title %></h3>
-				</a>
-			<% } %>
-		</div>
+		<%- include("./partials/articles.ejs", {articles: as}) %>
 
 		<% } %>
 	</main>
