@@ -61,7 +61,7 @@ function processArticles() {
 						month: parseInt(month),
 						day: fm.attributes.date
 					},
-					thumbnail: fm.attributes.thumbnail,
+					thumbnail: fm.attributes.thumbnail ? (fm.attributes.thumbnail.startsWith("content://") ? `/content/${fm.attributes.thumbnail.slice(10)}` : fm.attributes.thumbnail) : undefined,
 					date_js: new Date(parseInt(year), parseInt(month), fm.attributes.date),
 					tags: fm.attributes.tags,
 					series: fm.attributes.series,
@@ -79,7 +79,7 @@ app.register(
 );
 app.register(require("fastify-auto-push").staticServe, {
 	root: path.join(__dirname, "..", "static"),
-})  
+});
 
 processArticles();
 

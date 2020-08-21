@@ -234,9 +234,11 @@ h2.article_title {
 .article_series {
 	margin-top: 40px;
 
-	border: 2px solid black;
+	border-radius: 3px;
 
 	padding: 20px;
+
+	box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.15);
 }
 
 .article_series>p {
