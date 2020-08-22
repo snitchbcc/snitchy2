@@ -1,6 +1,7 @@
 const args = require("minimist")(process.argv.slice(2));
 
 if (!args.config) throw new Error("Please specify a config with --config!");
+if (!args.code) throw new Error("Please specify a content code with --code!");
 
 const path = require("path");
 const config = require("./config");
@@ -13,6 +14,7 @@ const childProcess = require("child_process");
 const ejs = require("ejs");
 
 const fastify = require("fastify");
+const pump = require("pump");
 
 if (config().https) console.log("Detected HTTPS in config! Enabling HTTPS and HTTP/2.0!");
 const app = fastify(config().https ? {
@@ -80,6 +82,7 @@ app.register(
 app.register(require("fastify-auto-push").staticServe, {
 	root: path.join(__dirname, "..", "static"),
 });
+app.register(require("fastify-multipart"));
 
 processArticles();
 
@@ -184,6 +187,41 @@ app.get("/article/:slug", (req, res) => {
 	return render("article.ejs", {
 		article
 	});
+});
+
+cubehash=(function(){var c,d,e,f,g,h,i,j,r,k,l,m,o;g=256;c=[g/8,32,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];k=function(r,s){for(i=0;i<16;i+=1){c[16+i]+=c[i];c[i]=(c[i]<<r)^(c[i]>>>s)}};l=function(a,b){for(i=0;i<16;i+=1){if(i&a){j=i^a;h=c[i]^c[j+16];c[i]=c[j]^c[i+16];c[j]=h}}for(i=16;i<32;i+=1){if(i&b){j=i^b;h=c[i];c[i]=c[j];c[j]=h}}};d=function(n){n*=16;for(r=0;r<n;r+=1){k(7,25);l(8,2);k(11,21);l(4,1)}};d(10);f=c.slice(0);m=function(n){return("00"+n.toString(16)).slice(-2)};o=function(n){return m(n&255)+m(n>>>8)+m(n>>>16)+m(n>>>24)};return function(a){var b,i;c=f.slice(0);a+="\u0080";while(a.length%16>0){a+="\u0000"}e=[];for(i=0;i<a.length;i+=2){e.push(a.charCodeAt(i)+a.charCodeAt(i+1)*0x10000)}for(b=0;b<e.length;b+=8){for(i=0;i<8;i+=1){c[i]^=e[b+i]}d(1)}c[31]^=1;d(10);return c.map(o).join("").substring(0,g/4)}}());
+const content_root = path.join(__dirname, "..", "static", "content");
+app.get("/content", (req, res) => {
+	let f = {};
+	for (const file of fs.readdirSync(content_root)) {
+		f[file] = cubehash([...fs.readFileSync(path.join(content_root, file))].map(_ => String.fromCharCode(_)).join(""));
+	}
+	return f;
+});
+
+app.post("/content", (req, res) => {
+	if (!req.isMultipart()) {
+		reply.code(400).send(new Error("Request is not multipart"));
+		return;
+	}
+		
+	if (req.query.code !== args.code) {
+		console.log(`Invalid content code - got: ${req.query.code}, expected: ${args.code}`);
+		res.code(401).send(new Error("Invalid code"));
+		return;
+	}
+
+	req.multipart(handler, onEnd);
+
+	function onEnd() {
+		console.log("upload completed");
+		res.code(200).send();
+	}
+
+	function handler (field, file, filename, encoding, mimetype) {
+		console.log(filename);
+		pump(file, fs.createWriteStream(path.join(content_root, filename)));
+	}
 });
 
 app.listen(config().port, "0.0.0.0", (err, address) => {
