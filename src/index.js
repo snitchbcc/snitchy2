@@ -237,13 +237,17 @@ app.get("/article/:slug", (req, res) => {
 
 const XXH = require("xxhashjs");
 const content_root = path.join(__dirname, "..", "static", "content");
-app.get("/content", (req, res) => {
-	let f = {};
+app.get("/content", async (req, res) => {
+	let f = [];
 	const H = XXH.h64( 0xABCD );
 	for (const file of fs.readdirSync(content_root)) {
-		f[file] = H.update([...fs.readFileSync(path.join(content_root, file))].map(_ => String.fromCharCode(_)).join("")).digest().toString("16");
+		f.push(new Promise(resolve => {
+			fs.readFile(path.join(content_root, file), (err, data) => {
+					resolve([file, H.update([...data].map(_ => String.fromCharCode(_)).join("")).digest().toString("16")]);
+			});
+		}));
 	}
-	return f;
+	return (await Promise.all(f)).reduce((a, b) => {a[b[0]] = b[1]; return a;}, {});;
 });
 
 app.post("/content", (req, res) => {
