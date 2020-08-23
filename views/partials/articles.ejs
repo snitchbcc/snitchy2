@@ -4,7 +4,7 @@
 		) { %>
 		<a href="/article/<%- article.slug %>">
 			<% if (article.thumbnail) { %>
-			<img src="<%- article.thumbnail %>" loading="lazy">
+			<img src="<%- article.thumbnail %>" alt="Thumbnail - <%- article.thumbnail %>" loading="lazy">
 			<% } %>
 			<h3><%- article.title %></h3>
 			<span><%- article.authors %></span>

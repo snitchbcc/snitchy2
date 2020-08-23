@@ -79,7 +79,7 @@ app.register(
 	require("fastify-compress"),
 	{ global: true }
 );
-app.register(require("fastify-auto-push").staticServe, {
+app.register(require("fastify-static").default, {
 	root: path.join(__dirname, "..", "static"),
 });
 app.register(require("fastify-multipart"));
@@ -98,8 +98,42 @@ function render(name, data) {
 	});
 }
 
+function push(req, res) {
+	if (!res.raw.stream) return;
+	req.raw.stream.pushStream(
+		{ ":path": `/style.css` },
+		(err, stream) => {
+			if (err) return;
+			stream.respondWithFile(path.join(__dirname, "../static/style.css"), {
+			"content-type": "text/css"
+		});
+	}
+	);
+
+	req.raw.stream.pushStream(
+		{ ":path": `/img/tophat.svg` },
+		(err, stream) => {
+			if (err) return;
+			stream.respondWithFile(path.join(__dirname, "../static/img/tophat.svg"), {
+			"content-type": "image/svg+xml"
+		});
+	}
+	);
+
+	req.raw.stream.pushStream(
+		{ ":path": `/Inter-normal.woff2` },
+		(err, stream) => {
+			if (err) return;
+			stream.respondWithFile(path.join(__dirname, "../static/Inter-normal.woff2"), {
+			"content-type": "application/font-woff2"
+		});
+	}
+	);
+}
+
 app.get("/", (req, res) => {
-	res.type("text/html").code(200);
+	res.type("text/html").code(200);	
+	push(req, res);
 	return render("section.ejs", {
 		articles,
 		tag: "featured",
@@ -114,6 +148,7 @@ app.get("/search", (req, res) => {
 		return res.redirect("/");
 
 	res.type("text/html").code(200);
+	push(req, res);
 	return render("search.ejs", {
 		articles,
 
@@ -123,6 +158,7 @@ app.get("/search", (req, res) => {
 
 app.get("/advice", (req, res) => {
 	res.type("text/html").code(200);
+	push(req, res);
 	return render("section.ejs", {
 		articles,
 		tag: "advice",
@@ -134,6 +170,7 @@ app.get("/advice", (req, res) => {
 
 app.get("/local", (req, res) => {
 	res.type("text/html").code(200);
+	push(req, res);
 	return render("section.ejs", {
 		articles,
 		tag: "local",
@@ -145,6 +182,7 @@ app.get("/local", (req, res) => {
 
 app.get("/politics", (req, res) => {
 	res.type("text/html").code(200);
+	push(req, res);
 	return render("section.ejs", {
 		articles,
 		tag: "politics",
@@ -156,6 +194,7 @@ app.get("/politics", (req, res) => {
 
 app.get("/culture", (req, res) => {
 	res.type("text/html").code(200);
+	push(req, res);
 	return render("section.ejs", {
 		articles,
 		tag: "culture",
@@ -167,11 +206,13 @@ app.get("/culture", (req, res) => {
 
 app.get("/about", (req, res) => {
 	res.type("text/html").code(200);
+	push(req, res);
 	return render("about.ejs");
 });
 
 app.get("/contact", (req, res) => {
 	res.type("text/html").code(200);
+	push(req, res);
 	return render("contact.ejs");
 });
 
@@ -230,6 +271,10 @@ app.listen(config().port, "0.0.0.0", (err, address) => {
 		process.exit(1);
 	}
 	console.info(`server listening on ${address}!`);
+});
+
+process.on("uncaughtException", err => {
+	console.error(err);
 });
 
 if (config().redirect_from_http)
