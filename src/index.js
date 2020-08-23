@@ -99,13 +99,27 @@ function render(name, data) {
 }
 
 function push(req, res) {
-	if (true) return;
+	if (!req.raw.stream) return;
+
+	// Fonts do weird flashy things in Chrome (crying emoji)
+	// req.raw.stream.pushStream(
+	// 	{ ":path": `/Inter-normal.woff2` },
+	// 	(err, stream) => {
+	// 		if (err) return;
+	// 		stream.respondWithFile(path.join(__dirname, "../static/Inter-normal.woff2"), {
+	// 		"content-type": "application/font-woff2",
+	// 		"cache-control": "public, max-age=0"
+	// 	});
+	// }
+	// );
+
 	req.raw.stream.pushStream(
 		{ ":path": `/style.css` },
 		(err, stream) => {
 			if (err) return;
 			stream.respondWithFile(path.join(__dirname, "../static/style.css"), {
-			"content-type": "text/css"
+			"content-type": "text/css",
+			"cache-control": "public, max-age=0"
 		});
 	}
 	);
@@ -115,17 +129,8 @@ function push(req, res) {
 		(err, stream) => {
 			if (err) return;
 			stream.respondWithFile(path.join(__dirname, "../static/img/tophat.svg"), {
-			"content-type": "image/svg+xml"
-		});
-	}
-	);
-
-	req.raw.stream.pushStream(
-		{ ":path": `/Inter-normal.woff2` },
-		(err, stream) => {
-			if (err) return;
-			stream.respondWithFile(path.join(__dirname, "../static/Inter-normal.woff2"), {
-			"content-type": "application/font-woff2"
+			"content-type": "image/svg+xml",
+			"cache-control": "public, max-age=0"
 		});
 	}
 	);
