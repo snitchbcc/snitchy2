@@ -99,7 +99,7 @@ function render(name, data) {
 }
 
 function push(req, res) {
-	if (!res.raw.stream) return;
+	if (true) return;
 	req.raw.stream.pushStream(
 		{ ":path": `/style.css` },
 		(err, stream) => {
