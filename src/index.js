@@ -113,16 +113,16 @@ function push(req, res) {
 	// }
 	// );
 
-	req.raw.stream.pushStream(
-		{ ":path": `/style.css` },
-		(err, stream) => {
-			if (err) return;
-			stream.respondWithFile(path.join(__dirname, "../static/style.css"), {
-			"content-type": "text/css",
-			"cache-control": "public, max-age=0"
-		});
-	}
-	);
+	// req.raw.stream.pushStream(
+	// 	{ ":path": `/style.css` },
+	// 	(err, stream) => {
+	// 		if (err) return;
+	// 		stream.respondWithFile(path.join(__dirname, "../static/style.css"), {
+	// 		"content-type": "text/css",
+	// 		"cache-control": "public, max-age=0"
+	// 	});
+	// }
+	// );
 
 	req.raw.stream.pushStream(
 		{ ":path": `/img/tophat.svg` },
