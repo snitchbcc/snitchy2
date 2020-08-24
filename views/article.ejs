@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<%- include("./partials/head.ejs", {title: article.title}) %>
+	<%- include("./partials/head.ejs", {title: article.title, image: article.thumbnail, description: article.body.slice(0, 500)}) %>
 </head>
 <body>
 	<%- include("./partials/nav.ejs") %>

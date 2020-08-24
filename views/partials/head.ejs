@@ -1,3 +1,5 @@
+<% var image = typeof image === "undefined" ? "/img/tophat_square.png" : image %>
+<% var description = typeof description === "undefined" ? "Democracy bumps into things in darkness" : description %>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Snitch - <%- title %></title>
@@ -16,18 +18,18 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="white">
 
-<meta name="description" content="Democracy bumps into things in darkness.">
+<meta name="description" content="<%= description %>">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="The Snitch - <%- title %>">
+<meta property="og:title" content="<%- title %>">
 <meta property="og:site_name" content="The Snitch">
-<meta property="og:description" content="Democracy bumps into things in darkness.">
+<meta property="og:description" content="<%= description %>">
 <meta property="og:url" content="https://snitchbcc.com/">
-<meta property="og:image" content="/img/tophat_square.png">
+<meta property="og:image" content="https://snitchbcc.com<%- image %>">
 
 <!-- Twitter -->
-<meta name="twitter:image" content="/img/tophat_square.png">
+<meta name="twitter:image" content="https://snitchbcc.com<%- image %>">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image:alt" content="The Snitch - <%- title %>">
 <meta name="twitter:site" content="@snitchbcc">

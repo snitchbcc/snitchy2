@@ -243,7 +243,7 @@ app.get("/content", async (req, res) => {
 	for (const file of fs.readdirSync(content_root)) {
 		f.push(new Promise(resolve => {
 			fs.readFile(path.join(content_root, file), (err, data) => {
-					resolve([file, H.update([...data].map(_ => String.fromCharCode(_)).join("")).digest().toString("16")]);
+				resolve([file, H.update([...data].map(_ => String.fromCharCode(_)).join("")).digest().toString("16")]);
 			});
 		}));
 	}
