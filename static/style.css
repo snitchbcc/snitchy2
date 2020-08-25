@@ -324,13 +324,13 @@ a {
 	}
 }
 
-.articles::before {
+/* .articles::before {
 	content: "";
 	width: 0;
 	padding-bottom: 100%;
 	grid-row: 1;
 	grid-column: 1;
-}
+} */
 
 .articles>*:first-child {
 	grid-row: 1;
