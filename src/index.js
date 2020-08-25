@@ -75,6 +75,8 @@ function processArticles() {
 	}
 }
 
+const people = JSON.parse(fs.readFileSync(path.join(__dirname, "people.json")).toString());
+
 app.register(
 	require("fastify-compress"),
 	{ global: true }
@@ -212,7 +214,9 @@ app.get("/culture", (req, res) => {
 app.get("/about", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
-	return render("about.ejs");
+	return render("about.ejs", {
+		people
+	});
 });
 
 app.get("/contact", (req, res) => {
