@@ -12,11 +12,16 @@
 	{
 		"name": "Auguste Rame",
 		"tagline": "IT Man, Writer, Editor",
-		"description": "haha website go brrr"
+		"description": "haha website go brrr."
 	},
 	{
 		"name": "Caleb Levy",
 		"tagline": "Editor",
 		"description": "When he’s not <del>tearing up</del> <i>improving</i> articles for The Snitch, he’s putting off improving articles for The Snitch."
+	},
+	{
+		"name": "Iva Vujacic",
+		"tagline": "Writer, Low Key Extraterrestrial",
+		"description": "Human creature from planet earth. Not sure what is happening but is here for the chaos."
 	}
 ]
