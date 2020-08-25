@@ -94,6 +94,9 @@ function render(name, data) {
 		getSeries(series) {
 			return articles.filter(_ => _.series === series).sort((a, b) => a.date_js - b.date_js, 0);
 		},
+		quote (string) {
+			return string.replace(/"/g, "&quot;");
+		},
 		...data
 	}, {
 		cache: false

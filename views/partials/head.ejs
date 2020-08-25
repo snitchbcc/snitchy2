@@ -18,18 +18,18 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="white">
 
-<meta name="description" content="<%= description %>">
+<meta name="description" content="<%- quote(description) %>">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="<%- title %>">
+<meta property="og:title" content="<%- quote(title) %>">
 <meta property="og:site_name" content="The Snitch">
-<meta property="og:description" content="<%= description %>">
+<meta property="og:description" content="<%- quote(description) %>">
 <meta property="og:url" content="https://snitchbcc.com/">
 <meta property="og:image" content="https://snitchbcc.com<%- image %>">
 
 <!-- Twitter -->
 <meta name="twitter:image" content="https://snitchbcc.com<%- image %>">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image:alt" content="The Snitch - <%- title %>">
+<meta name="twitter:image:alt" content="The Snitch - <%- quote(title) %>">
 <meta name="twitter:site" content="@snitchbcc">
