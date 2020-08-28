@@ -175,6 +175,8 @@ main {
 	margin-left: 50%;
 
 	width: calc(50% - 32px);
+
+	font-family: "Inter", sans-serif;
 }
 
 .baron_art {
@@ -432,6 +434,8 @@ footer>img {
 }
 
 .people>* {
+	border-radius: 3px;
+
 	padding: 40px;
 
 	cursor: pointer;
