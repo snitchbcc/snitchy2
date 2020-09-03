@@ -23,14 +23,7 @@
 				<section class="article-series">
 					<p>This article is part of the <strong><%= article.series %></strong> series.</p>
 
-					<div>
-						<% var i = 1 %>
-						<% for (const a of getSeries(article.series)) { %>
-							<a href="/article/<%- a.slug %>" title="<%= a.title %>" class="<%- a.slug === article.slug ? 'current' : '' %>"><%= i %></a>
-
-							<% i++ %>
-						<% } %>
-					</div>
+					<%- include("./partials/articles.ejs", {articles: getSeries(article.series), q: `#${article.series}`}) %>
 				</section>
 			<% } %>
 		</article>

@@ -1,18 +1,22 @@
-<div class="articles">
-	<% for (const article of
-			articles
-		) { %>
-		<a href="/article/<%- article.slug %>">
-			<% if (article.ribbon) { %>
-				<span class="ribbon"><%- article.ribbon %></span>
-			<% } %>
-			<% if (article.thumbnail) { %>
-				<img src="<%- article.thumbnail %>" alt="Thumbnail for <%- quote(`"${article.title}"`) %>" loading="lazy">
-			<% } %>
-			<div>
-				<h3><%- article.title %></h3>
-				<span><%- article.authors %></span>
-			</div>
-		</a>
-	<% } %>
-</div>
+<section class="articles" data-q="<%- q %>">
+	<div class="articles-list">
+		<% for (const article of
+				articles.slice(0, 6)
+			) { %>
+			<a href="/article/<%- article.slug %>">
+				<% if (article.ribbon) { %>
+					<span class="ribbon"><%- article.ribbon %></span>
+				<% } %>
+				<% if (article.thumbnail) { %>
+					<img src="<%- article.thumbnail %>" alt="Thumbnail for <%- quote(`"${article.title}"`) %>" loading="lazy">
+				<% } %>
+				<div>
+					<h3><%- article.title %></h3>
+					<span><%- article.authors %></span>
+				</div>
+			</a>
+		<% } %>
+	</div>
+	
+	<button class="articles-load_more">Load More</button>
+</section>

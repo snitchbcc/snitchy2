@@ -148,6 +148,25 @@ function push(req, res) {
 		});
 	}
 	);
+
+	req.raw.stream.pushStream(
+		{ ":path": `/app.js` },
+		(err, stream) => {
+			if (err) return;
+			stream.respondWithFile(path.join(__dirname, "../static/app.js"), {
+			"content-type": "text/javascript",
+			"cache-control": "public, max-age=0"
+		});
+	}
+	);
+}
+
+function queryArticles(query) {
+	if (query.startsWith("#")) {
+		return articles.filter(_ => _.tags.indexOf(query.slice(1)) !== -1);
+	}
+
+	return [];
 }
 
 app.get("/", (req, res) => {
@@ -249,6 +268,18 @@ app.get("/article/:slug", (req, res) => {
 	return render("article.ejs", {
 		article
 	});
+});
+
+app.get("/query", (req, res) => {
+	if (typeof req.query.q !== "string") return {error: "query parameter 'q' must be string!"}
+
+	const articles = queryArticles(req.query.q).sort((a, b) => b.date_js - a.date_js, 0).map(_ => ({
+		slug: _.slug,
+		title: _.title,
+		authors: _.authors,
+		thumbnail: _.thumbnail
+	}));
+	return !isNaN(parseInt(req.query.g)) ? articles.slice(req.query.g * 6, req.query.g * 6 + 6) : articles.slice(0, 6);
 });
 
 const XXH = require("xxhashjs");
