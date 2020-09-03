@@ -169,7 +169,7 @@ function queryArticles(query) {
 		return articles.filter(_ => _.series === query.slice(1));
 	}
 
-	return [];
+	return articles.filter(_ => _.title.indexOf(query) !== -1 || _.authors.indexOf(query) !== -1);
 }
 
 app.get("/", (req, res) => {

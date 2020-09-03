@@ -1,13 +1,13 @@
 [
 	{
 		"name": "Dale Bell",
-		"tagline": "Writer, Benevolent Tyrant, and The Ultimate IB Learner",
+		"tagline": "Writer, Editor in Chief, Benevolent Tyrant, and Ultimate IB Learner",
 		"description": "Dale Bell is a determined journalist with only one goal, which he pursues tirelessly: getting the website trending. And also the truth or whatever."
 	},
 	{
 		"name": "Benjy Eichner",
-		"tagline": "Head Editor, Writer",
-		"description": "This role as Head Editor is the only way I have power over my Dungeon Master."
+		"tagline": "Editor, Writer",
+		"description": "Sycophant in Chief"
 	},
 	{
 		"name": "Auguste Rame",
@@ -18,6 +18,11 @@
 		"name": "Caleb Levy",
 		"tagline": "Editor",
 		"description": "When he’s not <del>tearing up</del> <i>improving</i> articles for The Snitch, he’s putting off improving articles for The Snitch."
+	},
+	{
+		"name": "Bill Angell",
+		"tagline": "Writing person",
+		"description": "Was once told that “Theatre isn’t all there is to life.” In a dejected trance he found himself waking up in The Snitch’s office, and decided to stay out of gratitude for the staff not eating him."
 	},
 	{
 		"name": "Iva Vujacic",
