@@ -97,6 +97,10 @@ app.register(require("fastify-multipart"));
 
 processArticles();
 
+if (config().cache_views) {
+	console.info("Caching views!");
+}
+
 function render(name, data) {
 	return ejs.renderFile(path.join(__dirname, "..", "views", name), {
 		months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -108,7 +112,7 @@ function render(name, data) {
 		},
 		...data
 	}, {
-		cache: false
+		cache: !!config().cache_views
 	});
 }
 
