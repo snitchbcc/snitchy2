@@ -7,7 +7,7 @@
 				<span class="ribbon"><%- article.ribbon %></span>
 			<% } %>
 			<% if (article.thumbnail) { %>
-				<img src="<%- article.thumbnail %>" alt="Thumbnail - <%- article.thumbnail %>" loading="lazy">
+				<img src="<%- article.thumbnail %>" alt="Thumbnail for <%- quote(`"${article.title}"`) %>" loading="lazy">
 			<% } %>
 			<div>
 				<h3><%- article.title %></h3>

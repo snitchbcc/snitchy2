@@ -12,6 +12,7 @@ const marked = require("marked");
 const frontMatter = require("front-matter");
 const childProcess = require("child_process");
 const ejs = require("ejs");
+const zlib = require("zlib");
 
 const fastify = require("fastify");
 const pump = require("pump");
@@ -80,7 +81,14 @@ const people = JSON.parse(fs.readFileSync(path.join(__dirname, "people.json")).t
 
 app.register(
 	require("fastify-compress"),
-	{ global: true }
+	{
+		global: true,
+		brotliOptions: {
+			params: {
+				[zlib.constants.BROTLI_PARAM_QUALITY]: 4,
+			},
+		}
+	}
 );
 app.register(require("fastify-static").default, {
 	root: path.join(__dirname, "..", "static"),
@@ -143,7 +151,7 @@ function push(req, res) {
 }
 
 app.get("/", (req, res) => {
-	res.type("text/html").code(200);	
+	res.type("text/html").code(200);
 	push(req, res);
 	return render("section.ejs", {
 		articles,
