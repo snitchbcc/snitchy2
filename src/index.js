@@ -34,7 +34,10 @@ setInterval(() => {
 			cwd: path.join(__dirname, "..", "data", "articles")
 		});
 
-		if (out.indexOf("Already up to date.") !== -1) return;
+		if (out.indexOf("Already up to date.") !== -1) {
+			ejs.cache.reset();
+			return;
+		}
 		processArticles();
 		console.log(`New out: ${out}`);
 	} catch (err) {
