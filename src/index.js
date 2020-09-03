@@ -35,7 +35,6 @@ setInterval(() => {
 		});
 
 		if (out.indexOf("Already up to date.") !== -1) return;
-		ejs.cache.reset();
 		processArticles();
 		console.log(`New out: ${out}`);
 	} catch (err) {
@@ -98,10 +97,6 @@ app.register(require("fastify-multipart"));
 
 processArticles();
 
-if (config().cache_views) {
-	console.info("Caching views!");
-}
-
 function render(name, data) {
 	return ejs.renderFile(path.join(__dirname, "..", "views", name), {
 		months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -113,7 +108,7 @@ function render(name, data) {
 		},
 		...data
 	}, {
-		cache: !!config().cache_views
+		cache: false
 	});
 }
 
