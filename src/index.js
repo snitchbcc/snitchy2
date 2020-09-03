@@ -106,6 +106,7 @@ function render(name, data) {
 		quote (string) {
 			return string.replace(/"/g, "&quot;");
 		},
+		queryArticles,
 		...data
 	}, {
 		cache: false
@@ -164,6 +165,8 @@ function push(req, res) {
 function queryArticles(query) {
 	if (query.startsWith("#")) {
 		return articles.filter(_ => _.tags.indexOf(query.slice(1)) !== -1);
+	} else if (query.startsWith(":")) {
+		return articles.filter(_ => _.series === query.slice(1));
 	}
 
 	return [];
