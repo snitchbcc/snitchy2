@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<%- include("./partials/head.ejs", {title}) %>
-</head>
-<body>
-	<%- include("./partials/nav.ejs") %>
+<%- include("./partials/head.ejs", {title, dark}) %>
 
-	<main>
-		<div id="top_right">
-			<%- include("./partials/search.ejs") %>
-			<%- include("./partials/art.ejs") %>
-		</div>
+<%- include("./partials/nav.ejs") %>
+
+<main>
+	<div id="top_right">
+		<%- include("./partials/search.ejs") %>
+		<%- include("./partials/art.ejs") %>
+	</div>
 	
-		<h2><%- title %></h2>
+	<h2><%- title %></h2>
+	
+	<p class="tagline"><%- description %></p>
+	
+	<%- include("./partials/articles.ejs", {articles: articles.filter(_ => _.tags.indexOf(tag) !== -1).sort((a, b) => b.date_js - a.date_js, 0), q: `#${tag}`}) %>
+</main>
 
-		<p class="tagline"><%- description %></p>
-
-		<%- include("./partials/articles.ejs", {articles: articles.filter(_ => _.tags.indexOf(tag) !== -1).sort((a, b) => b.date_js - a.date_js, 0), q: `#${tag}`}) %>
-	</main>
-
-	<%- include("./partials/footer.ejs") %>
-</body>
-</html>
+<%- include("./partials/footer.ejs") %>

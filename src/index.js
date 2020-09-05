@@ -94,10 +94,11 @@ app.register(require("fastify-static").default, {
 	root: path.join(__dirname, "..", "static"),
 });
 app.register(require("fastify-multipart"));
+app.register(require("fastify-cookie"), {});
 
 processArticles();
 
-function render(name, data) {
+function render(name, req, data) {
 	return ejs.renderFile(path.join(__dirname, "..", "views", name), {
 		months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"],
 		getSeries(series) {
@@ -107,6 +108,7 @@ function render(name, data) {
 			return string.replace(/"/g, "&quot;");
 		},
 		queryArticles,
+		dark: req.cookies.theme === "dark",
 		...data
 	}, {
 		cache: false
@@ -175,7 +177,7 @@ function queryArticles(query) {
 app.get("/", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
-	return render("section.ejs", {
+	return render("section.ejs", req, {
 		articles,
 		tag: "featured",
 
@@ -190,7 +192,7 @@ app.get("/search", (req, res) => {
 
 	res.type("text/html").code(200);
 	push(req, res);
-	return render("search.ejs", {
+	return render("search.ejs", req, {
 		articles,
 
 		query: req.query.q
@@ -200,7 +202,7 @@ app.get("/search", (req, res) => {
 app.get("/advice", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
-	return render("section.ejs", {
+	return render("section.ejs", req, {
 		articles,
 		tag: "advice",
 
@@ -212,7 +214,7 @@ app.get("/advice", (req, res) => {
 app.get("/local", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
-	return render("section.ejs", {
+	return render("section.ejs", req, {
 		articles,
 		tag: "local",
 
@@ -224,7 +226,7 @@ app.get("/local", (req, res) => {
 app.get("/politics", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
-	return render("section.ejs", {
+	return render("section.ejs", req, {
 		articles,
 		tag: "politics",
 
@@ -236,7 +238,7 @@ app.get("/politics", (req, res) => {
 app.get("/culture", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
-	return render("section.ejs", {
+	return render("section.ejs", req, {
 		articles,
 		tag: "culture",
 
@@ -248,7 +250,7 @@ app.get("/culture", (req, res) => {
 app.get("/about", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
-	return render("about.ejs", {
+	return render("about.ejs", req, {
 		people
 	});
 });
@@ -256,7 +258,7 @@ app.get("/about", (req, res) => {
 app.get("/contact", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
-	return render("contact.ejs");
+	return render("contact.ejs", req);
 });
 
 app.get("/discord", (req, res) => {
@@ -268,7 +270,7 @@ app.get("/article/:slug", (req, res) => {
 	if (!article) return res.redirect("/");
 
 	res.type("text/html").code(200);
-	return render("article.ejs", {
+	return render("article.ejs", req, {
 		article
 	});
 });

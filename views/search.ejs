@@ -1,27 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<%- include("./partials/head.ejs", {title: "Search"}) %>
-</head>
-<body>
-	<%- include("./partials/nav.ejs") %>
+<%- include("./partials/head.ejs", {title: "Search", dark}) %>
+<%- include("./partials/nav.ejs") %>
 
-	<main>
-		<h2>Results for <%= query %></h2>
+<main>
+	<h2>Results for <%= query %></h2>
 
-		<%- include("./partials/search.ejs", {value: query}) %>
+	<%- include("./partials/search.ejs", {value: query}) %>
 
-		<% var as = queryArticles(query).sort((a, b) => b.date_js - a.date_js, 0) %>
+	<% var as = queryArticles(query).sort((a, b) => b.date_js - a.date_js, 0) %>
 
-		<% if (as.length === 0) { %>
-			<p>Zero results found!</p>
-		<% } else { %>
-
+	<% if (as.length === 0) { %>
+		<p>Zero results found!</p>
+	<% } else { %>
 		<%- include("./partials/articles.ejs", {articles: as, q: query}) %>
+	<% } %>
+</main>
 
-		<% } %>
-	</main>
-
-	<%- include("./partials/footer.ejs") %>
-</body>
-</html>
+<%- include("./partials/footer.ejs") %>

@@ -57,6 +57,57 @@ html, body {
 	font-family: $font-stack;
 }
 
+@function dark-theme-gray($a: 1) {
+	@return rgba(205, 205, 205, $a);
+}
+
+body {
+	--body-color: black;
+	color: var(--body-color);
+
+	&.dark {
+		--body-color: rgb(205, 205, 205);
+		background-color: black;
+
+		#nav_title>img {
+			filter: invert(0.8);
+		}
+
+		nav {
+			box-shadow: 0 0 5px dark-theme-gray(0.5);
+		}
+
+		.search {
+			background-color: dark-theme-gray(1);
+		}
+
+		.baron_art>* {
+			filter: grayscale(0.5);
+			opacity: 0.5;
+		}
+
+		%box {
+			box-shadow: 0px 0px 7px dark-theme-gray(0.25);
+		}
+
+		.articles-list>a>div>span, .article>span {
+			color: dark-theme-gray(0.75);
+		}
+
+		.articles-load_more {
+			box-shadow: 0px 0px 7px dark-theme-gray(0.25);
+		}
+
+		a {
+			color: orangered;
+		}
+
+		footer {
+			background-color: dark-theme-gray(0.055);
+		}
+	}
+}
+
 nav {
 	position: relative;
 
@@ -79,7 +130,7 @@ nav {
 	margin: 0;
 	margin-left: 5px;
 
-	color: black;
+	color: var(--body-color);
 	font-size: 20pt;
 
 	vertical-align: bottom;
@@ -97,7 +148,7 @@ nav {
 #nav_items>* {
 	margin-left: 20px;
 
-	color: black;
+	color: var(--body-color);
 
 	font-size: 14pt;
 	font-weight: 500;
@@ -215,6 +266,8 @@ main {
 
 	box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
 	object-fit: cover;
+
+	background-color: white;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -296,12 +349,10 @@ h3 {
 
 	&-series {
 		margin-top: 40px;
-	
-		border-radius: 3px;
-	
+
 		padding: 20px;
-	
-		box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.15);
+		
+		@extend %box;
 
 		&>p {
 			margin-top: 0;
@@ -341,7 +392,7 @@ h3 {
 		&>* {
 			position: relative;
 		
-			color: black;
+			color: var(--body-color);
 			text-decoration: none;
 		
 			@extend %box-interactive;
@@ -416,6 +467,7 @@ h3 {
 
 		width: 100%;
 
+		color: var(--body-color);
 		font-size: 20pt;
 		text-align: center;
 		font-weight: 700;
@@ -434,6 +486,35 @@ h3 {
 		&:active {
 			box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.25);
 		}
+	}
+}
+
+#theme_switcher {
+	position: fixed;
+
+	right: 20px;
+	bottom: 20px;
+
+	display: flex;
+
+	border-radius: 100%;
+
+	width: 50px;
+	height: 50px;
+
+	font-size: 20pt;
+	font-family: sans-serif;
+	line-height: 0;
+
+	cursor: pointer;
+	box-shadow: 0px 0px 7px rgba(0,0,0,0.5);
+	transition: 0.2s box-shadow;
+	align-items: center;
+	justify-content: center;
+	background-color: black;
+
+	&:hover {
+		box-shadow: 0px 0px 7px rgba(0,0,0,1);
 	}
 }
 

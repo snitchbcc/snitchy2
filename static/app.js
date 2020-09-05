@@ -30,5 +30,14 @@ document.body.addEventListener("click", async event => {
 		scrollBy({
 			top: -40
 		});
+	} else if (target.id === "theme_switcher") {
+		document.body.classList.toggle("dark");
+		if (target.innerText === "🌕") {
+			target.innerText = "☀️";
+			document.cookie ="theme=dark;path=/";
+		} else {
+			target.innerText = "🌕";
+			document.cookie = "theme=light;path=/";
+		}
 	}
 });
