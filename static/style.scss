@@ -69,12 +69,21 @@ body {
 		--body-color: rgb(205, 205, 205);
 		background-color: black;
 
+		*::selection {
+			color: black;
+			background-color: orangered;
+		}		
+
 		#nav_title>img {
 			filter: invert(0.8);
 		}
 
 		nav {
 			box-shadow: 0 0 5px dark-theme-gray(0.5);
+		}
+
+		.nav_itmes {
+			background-color: black;
 		}
 
 		.search {
@@ -103,7 +112,7 @@ body {
 		}
 
 		footer {
-			background-color: dark-theme-gray(0.055);
+			background-color: dark-theme-gray(0.1);
 		}
 	}
 }
