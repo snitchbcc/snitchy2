@@ -268,7 +268,11 @@ app.get("/discord", (req, res) => {
 
 app.get("/article/:slug", (req, res) => {
 	const article = articles.find(_ => _.slug === req.params.slug);
-	if (!article) return res.redirect("/");
+	push(req, res);
+	if (!article) {
+		res.type("text/html").code(404);
+		return render("404.ejs", req, {});
+	}
 
 	res.type("text/html").code(200);
 	return render("article.ejs", req, {
@@ -334,6 +338,12 @@ app.post("/content", (req, res) => {
 		console.log(filename);
 		pump(file, fs.createWriteStream(path.join(content_root, filename)));
 	}
+});
+
+app.setNotFoundHandler((req, res) => {
+	push(req, res);
+	res.type("text/html").code(404);
+	return render("404.ejs", req, {});
 });
 
 app.listen(config().port, "0.0.0.0", (err, address) => {
