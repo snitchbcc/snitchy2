@@ -1,4 +1,4 @@
-<%- include("./partials/head.ejs", {title: article.title, image: article.thumbnail, description: article.body.slice(0, 500), dark}) %>
+<%- include("./partials/head.ejs", {title: article.title, image: article.thumbnail, description: article.description ? article.description : article.body.slice(0, 500), dark}) %>
 <%- include("./partials/nav.ejs") %>
 
 <main>

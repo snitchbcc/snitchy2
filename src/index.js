@@ -59,6 +59,7 @@ function processArticles() {
 					slug: article.slice(0, article.length - 3),
 					title: fm.attributes.title,
 					authors: fm.attributes.authors,
+					description: fm.attributes.description,
 					date: {
 						year: parseInt(year),
 						month: parseInt(month),
