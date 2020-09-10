@@ -288,6 +288,14 @@ app.get("/query", (req, res) => {
 	return !isNaN(parseInt(req.query.g)) ? articles.slice(req.query.g * 6, req.query.g * 6 + 6) : articles.slice(0, 6);
 });
 
+app.get("/sitemap.xml", (req, res) => {
+	res.type("text/xml").code(200);
+	push(req, res);
+	return render("sitemap.ejs", req, {
+		articles
+	});
+});
+
 const XXH = require("xxhashjs");
 const content_root = path.join(__dirname, "..", "static", "content");
 app.get("/content", async (req, res) => {
