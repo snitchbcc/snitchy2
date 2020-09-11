@@ -16,6 +16,7 @@ const zlib = require("zlib");
 
 const fastify = require("fastify");
 const pump = require("pump");
+const analogger = require("./analogger");
 
 if (config().https) console.log("Detected HTTPS in config! Enabling HTTPS and HTTP/2.0!");
 const app = fastify(config().https ? {
@@ -96,6 +97,12 @@ app.register(require("fastify-static").default, {
 });
 app.register(require("fastify-multipart"));
 app.register(require("fastify-cookie"), {});
+
+app.addHook("onResponse", (req, res, next) => {
+	if (res.statusCode !== 200 || req.url.indexOf(".") !== -1) return;
+	analogger(req.url, req.headers["referer"]);
+	next();
+})
 
 processArticles();
 
@@ -294,7 +301,6 @@ app.get("/query", (req, res) => {
 
 app.get("/sitemap.xml", (req, res) => {
 	res.type("text/xml").code(200);
-	push(req, res);
 	return render("sitemap.ejs", req, {
 		articles
 	});
