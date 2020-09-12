@@ -98,9 +98,11 @@ app.register(require("fastify-static").default, {
 app.register(require("fastify-multipart"));
 app.register(require("fastify-cookie"), {});
 
-app.addHook("onResponse", (req, res, next) => {
-	if (res.statusCode !== 200 || req.url.indexOf(".") !== -1) return;
-	analogger(req.url, req.headers["referer"]);
+app.addHook("onRequest", (req, res, next) => {
+	if (req.url.indexOf(".") !== -1) return next();
+	var sess = req.cookies.session || Math.random().toString(36).replace("0.", "");
+	if (!req.cookies.session) res.setCookie("session", sess, {path: "/"});
+	analogger(req.ip, sess, req.url, req.headers["referer"]);
 	next();
 })
 
