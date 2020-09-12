@@ -102,9 +102,15 @@ app.addHook("onRequest", (req, res, next) => {
 	if (req.url.indexOf(".") !== -1) return next();
 	var sess = req.cookies.session || Math.random().toString(36).replace("0.", "");
 	if (!req.cookies.session) res.setCookie("session", sess, {path: "/"});
-	analogger(req.ip, sess, req.url, req.headers["referer"]);
+	res.pouch = {ip: req.ip, session: sess};
 	next();
-})
+});
+
+app.addHook("onResponse", (req, res, next) => {
+	if (!res.pouch || res.statusCode !== 200) return next();
+	analogger(res.pouch.ip, res.pouch.session, req.url, req.headers["referer"]);
+	next();
+});
 
 processArticles();
 
