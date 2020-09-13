@@ -192,15 +192,22 @@ body {
 	
 		position: absolute;
 	
-		top: 52.5%;
+		top: 48px;
 		right: 40px;
-	
-		transform: translate(0, -50%);
-	
+		
 		font-size: 20pt;
 		font-weight: 400;
 	
 		cursor: pointer;
+
+		&>* {
+			margin: 4px 0;
+
+			width: 25px;
+			height: 2px;
+
+			background-color: var(--body-color);			  
+		}
 	}
 
 	&.open {
