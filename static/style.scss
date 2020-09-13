@@ -74,16 +74,30 @@ body {
 			background-color: orangered;
 		}		
 
-		#nav_title>img {
-			filter: invert(0.8);
+		a {
+			color: orangered;
 		}
 
-		nav {
+		.nav {
 			box-shadow: 0 0 5px dark-theme-gray(0.5);
-		}
 
-		#nav_items {
-			background-color: black;
+			&-title>img {
+				filter: invert(0.8);
+			}
+
+			&-clickables {
+				background-color: black;
+
+				&-links {
+					&>* {
+						color: var(--body-color);
+					}
+				}
+
+				&-socials>* {
+					filter: invert(0.8);
+				}
+			}
 		}
 
 		.search {
@@ -97,10 +111,6 @@ body {
 
 		%box {
 			box-shadow: 0px 0px 7px dark-theme-gray(0.25);
-		}
-
-		a {
-			color: orangered;
 		}
 
 		.articles-list>a>div>span, .article>span, .people>*>h5 {
@@ -117,126 +127,152 @@ body {
 	}
 }
 
-nav {
+.nav {
 	position: relative;
 
 	padding: 40px;
 
 	box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-}
 
-#nav_title>img {
-	width: 30px;
-}
+	&-title {
+		text-decoration: none;
 
-#nav_title {
-	text-decoration: none;
-}
+		&>img {
+			width: 30px;
+		}
 
-#nav_title>h1 {
-	display: inline-block;
+		&>h1 {
+			display: inline-block;
+		
+			margin: 0;
+			margin-left: 5px;
+		
+			color: var(--body-color);
+			font-size: 20pt;
+		
+			vertical-align: bottom;
+		}
+	}
 
-	margin: 0;
-	margin-left: 5px;
+	&-clickables {
+		position: absolute;
+	
+		top: 50%;
+		right: 40px;
 
-	color: var(--body-color);
-	font-size: 20pt;
+		transform: translate(0, -50%);
 
-	vertical-align: bottom;
-}
+		&-socials {
+			display: flex;
 
-#nav_items {
-	position: absolute;
+			justify-content: flex-end;
+			
+			margin-bottom: 5px;
+			
+			&>* {
+				margin-left: 10px;
 
-	top: 53%;
-	right: 40px;
+				&>img {width: 25px; height: 25px;}
+			}
+		}
 
-	transform: translate(0, -50%);
-}
+		&-links>* {
+			margin-left: 20px;
+		
+			color: var(--body-color);
+		
+			font-size: 14pt;
+			font-weight: 500;
+			text-decoration: none;
+		}
+	}
 
-#nav_items>* {
-	margin-left: 20px;
+	&-opener {
+		display: none;
+	
+		position: absolute;
+	
+		top: 52.5%;
+		right: 40px;
+	
+		transform: translate(0, -50%);
+	
+		font-size: 20pt;
+		font-weight: 400;
+	
+		cursor: pointer;
+	}
 
-	color: var(--body-color);
+	&.open {
+		.nav-title, .nav-opener {
+			position: absolute;
 
-	font-size: 14pt;
-	font-weight: 500;
-	text-decoration: none;
-}
+			transform: none;
+		}
 
-#nav_opener {
-	display: none;
-
-	position: absolute;
-
-	top: 52.5%;
-	right: 40px;
-
-	transform: translate(0, -50%);
-
-	font-size: 20pt;
-	font-weight: 400;
-
-	cursor: pointer;
+		.nav-clickables {
+			opacity: 1;
+			pointer-events: all;
+		}
+	}
 }
 
 @media only screen and (max-width: 1000px) {
-	#nav_title, #nav_opener {
-		z-index: 101;
-	}
+	.nav, .nav {
+		&-title, &-opener {
+			z-index: 101;
+		}
 
-	#nav_items {
-		/* display: none; */
-		opacity: 0;
-		pointer-events: none;
-
-		padding: 40px 20px;
-
-		top: 40px;
-		left: 0px;
-		right: unset;
-
-		margin-top: 40px;
-
-		width: calc(100% - 40px);
-		height: 100vh;
-
-		transform: none;
-
-		transition: 0.1s opacity linear;
-		background-color: white;
-
-		z-index: 100;
-		user-select: none;
-	}
-
-	#nav_items>* {
-		display: block;
-
-		margin-bottom: 10px;
+		&-opener {
+			display: inline-block;
+		}
 		
-		font-size: 20pt;
-	}
+		&-clickables {
+			position: absolute;
 
-	#nav_opener {
-		display: inline-block;
+			/* display: none; */
+			opacity: 0;
+			pointer-events: none;
+	
+			padding: 40px 20px;
+	
+			top: 40px;
+			left: 0px;
+			right: unset;
+	
+			margin-top: 40px;
+	
+			width: calc(100% - 40px);
+			height: 100vh;
+	
+			transform: none;
+	
+			transition: 0.1s opacity linear;
+			background-color: white;
+	
+			z-index: 100;
+			user-select: none;
+
+			&-socials {
+				position: absolute;
+
+				top: 45px;
+				right: 20px;
+			}
+
+			&-links>* {
+				display: block;
+		
+				margin-bottom: 10px;
+				
+				font-size: 20pt;
+			}
+		}
 	}
 
 	#top_right {
 		display: none;
 	}
-}
-
-nav.open #nav_title, nav.open #nav_opener {
-	position: absolute;
-
-	/* top: 40px; */
-	transform: none;
-}
-
-nav.open #nav_items {
-	opacity: 1;
-	pointer-events: all;
 }
 
 main {
@@ -519,6 +555,9 @@ h3 {
 	box-shadow: 0px 0px 7px rgba(0,0,0,0.5);
 	transition: 0.2s box-shadow;
 	align-items: center;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
 	justify-content: center;
 	background-color: black;
 

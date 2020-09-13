@@ -1,21 +1,28 @@
-<nav>
-	<a id="nav_title" href="/">
+<nav class="nav">
+	<a class="nav-title" href="/">
 		<img src="/img/tophat.svg" alt="">
 		<h1>the snitch</h1>
 	</a>
 
-	<div id="nav_items">
-		<a href="/">Latest</a>
-		<a href="/about">About</a>
-		<a href="/advice">Advice</a>
-		<a href="/local">Local</a>
-		<a href="/politics">Politics</a>
-		<a href="/culture">Culture</a>
-		<a href="/contact">Contact</a>
-		<a href="/discord">Discord</a>
+	<div class="nav-clickables">
+		<div class="nav-clickables-socials">
+			<a href="/discord"><img src="/img/socials/discord.svg" alt="Discord" style="transform: scale(1.2);"></a>
+			<a href="https://twitter.com/snitchbcc"><img src="/img/socials/twitter.svg" alt="Twitter"></a>
+			<a href="https://instagram.com/thesnitchbcc"><img src="/img/socials/instagram.svg" alt="Instagram"></a>
+		</div>
+
+		<div class="nav-clickables-links">
+			<a href="/">Latest</a>
+			<a href="/about">About</a>
+			<a href="/advice">Advice</a>
+			<a href="/local">Local</a>
+			<a href="/politics">Politics</a>
+			<a href="/culture">Culture</a>
+			<a href="/contact">Contact</a>
+		</div>
 	</div>
 
-	<div id="nav_opener" onclick="this.parentElement.classList.toggle('open')">
+	<div class="nav-opener" onclick="this.parentElement.classList.toggle('open')">
 		≡
 	</div>
 </nav>
