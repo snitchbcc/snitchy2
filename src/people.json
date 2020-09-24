@@ -5,14 +5,14 @@
 		"description": "Dale Bell is a determined journalist with only one goal, which he pursues tirelessly: getting the website trending. And also the truth or whatever."
 	},
 	{
-		"name": "Benjy Eichner",
-		"tagline": "Senior Writer",
-		"description": "Sycophant in Chief"
-	},
-	{
 		"name": "Auguste Rame",
 		"tagline": "Hackerman, Writer, Editor",
 		"description": "I rewrite articles in their entirety with neither consent nor input and apply that same adventurous mindset to my writing and our website."
+	},
+	{
+		"name": "Benjy Eichner",
+		"tagline": "Senior Writer",
+		"description": "Sycophant in Chief"
 	},
 	{
 		"name": "Caleb Levy",
