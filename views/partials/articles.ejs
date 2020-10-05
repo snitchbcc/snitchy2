@@ -1,4 +1,4 @@
-<section class="articles" data-q="<%- q %>">
+<section class="articles" data-q="<%- typeof q === 'undefined' ? '' : q %>">
 	<div class="articles-list">
 		<% for (const article of
 				articles.slice(0, 6)
@@ -18,5 +18,7 @@
 		<% } %>
 	</div>
 	
-	<button class="articles-load_more">Load More</button>
+	<% if (typeof q !== 'undefined') { %>
+		<button class="articles-load_more">Load More</button>
+	<% } %>
 </section>

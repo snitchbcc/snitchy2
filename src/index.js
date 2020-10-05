@@ -117,8 +117,20 @@ processArticles();
 function render(name, req, data) {
 	return ejs.renderFile(path.join(__dirname, "..", "views", name), {
 		months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"],
+		sortByDate(articles) {
+			return articles.sort((a, b) => b.date_js - a.date_js, 0);
+		},
 		getSeries(series) {
 			return articles.filter(_ => _.series === series).sort((a, b) => a.date_js - b.date_js, 0);
+		},
+		firstTag(article) {
+			const a = (article.tags[0] === "featured" ? article.tags.slice(1) : articles.tags);
+			if (!a) return;
+			return a[0];
+		},
+		getRecommended(article) {
+			const priority_tag = this.firstTag(article);
+			return this.sortByDate(articles).filter(_ => _.slug !== article.slug && this.firstTag(_) === priority_tag);
 		},
 		quote (string) {
 			return string.replace(/"/g, "&quot;");
@@ -182,6 +194,7 @@ function push(req, res) {
 
 function queryArticles(query) {
 	if (query.startsWith("#")) {
+		if (query.slice(1) === "featured") return articles;
 		return articles.filter(_ => _.tags.indexOf(query.slice(1)) !== -1);
 	} else if (query.startsWith(":")) {
 		return articles.filter(_ => _.series === query.slice(1));
