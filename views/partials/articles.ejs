@@ -3,7 +3,7 @@
 		<% for (const article of
 				articles.slice(0, 6)
 			) { %>
-			<a href="/article/<%- article.slug %>">
+			<a href="/article/<%- article.slug %>"<%- article.tags.indexOf('cartoon') !== -1 ? 'class="cartoon"' : ''  %>>
 				<% if (article.ribbon) { %>
 					<span class="ribbon"><%- article.ribbon %></span>
 				<% } %>
