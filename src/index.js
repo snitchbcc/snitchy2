@@ -169,27 +169,27 @@ function push(req, res) {
 	// }
 	// );
 
-	req.raw.stream.pushStream(
-		{ ":path": `/img/tophat.svg` },
-		(err, stream) => {
-			if (err) return;
-			stream.respondWithFile(path.join(__dirname, "../static/img/tophat.svg"), {
-			"content-type": "image/svg+xml",
-			"cache-control": "public, max-age=0"
-		});
-	}
-	);
+	// req.raw.stream.pushStream(
+	// 	{ ":path": `/img/tophat.svg` },
+	// 	(err, stream) => {
+	// 		if (err) return;
+	// 		stream.respondWithFile(path.join(__dirname, "../static/img/tophat.svg"), {
+	// 		"content-type": "image/svg+xml",
+	// 		"cache-control": "public, max-age=0"
+	// 	});
+	// }
+	// );
 
-	req.raw.stream.pushStream(
-		{ ":path": `/app.js` },
-		(err, stream) => {
-			if (err) return;
-			stream.respondWithFile(path.join(__dirname, "../static/app.js"), {
-			"content-type": "text/javascript",
-			"cache-control": "public, max-age=0"
-		});
-	}
-	);
+	// req.raw.stream.pushStream(
+	// 	{ ":path": `/app.js` },
+	// 	(err, stream) => {
+	// 		if (err) return;
+	// 		stream.respondWithFile(path.join(__dirname, "../static/app.js"), {
+	// 		"content-type": "text/javascript",
+	// 		"cache-control": "public, max-age=0"
+	// 	});
+	// }
+	// );
 }
 
 function queryArticles(query) {
