@@ -236,7 +236,7 @@ app.get("/series", (req, res) => {
 		tag: "series",
 
 		title: "Series",
-		description: "Let us stretch out single articles into hundreds of distinctly horrible parts that we have the audacity to call series."
+		description: "Individually horrible articles, combined."
 	});
 });
 
