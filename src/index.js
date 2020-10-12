@@ -228,15 +228,15 @@ app.get("/search", (req, res) => {
 	});
 });
 
-app.get("/advice", (req, res) => {
+app.get("/series", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
 	return render("section.ejs", req, {
 		articles,
-		tag: "advice",
+		tag: "series",
 
-		title: "Advice",
-		description: "Let us solve your many, many problems."
+		title: "Series",
+		description: "Let us stretch out single articles into hundreds of distinctly horrible parts that we have the audacity to call series."
 	});
 });
 
