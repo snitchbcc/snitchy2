@@ -276,6 +276,19 @@ app.get("/culture", (req, res) => {
 	});
 });
 
+
+app.get("/best-of", (req, res) => {
+	res.type("text/html").code(200);
+	push(req, res);
+	return render("section.ejs", req, {
+		articles,
+		tag: "best-of",
+
+		title: "Best Of",
+		description: "Our best articles."
+	});
+});
+
 app.get("/about", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
