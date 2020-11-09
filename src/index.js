@@ -328,7 +328,8 @@ app.get("/query", (req, res) => {
 		slug: _.slug,
 		title: _.title,
 		authors: _.authors,
-		thumbnail: _.thumbnail
+		thumbnail: _.thumbnail,
+		tags: _.tags
 	}));
 	return !isNaN(parseInt(req.query.g)) ? articles.slice(req.query.g * 6, req.query.g * 6 + 6) : articles.slice(0, 6);
 });

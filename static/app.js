@@ -13,6 +13,7 @@ document.body.addEventListener("click", async event => {
 			const article_el = document.createElement("a");
 
 			article_el.href = `/article/${article.slug}`;
+			if (article.tags.indexOf("cartoon") !== -1) article_el.className = "cartoon";
 			article_el.innerHTML =
 			`
 			${article.thumbnail ? `<img src="${article.thumbnail}" alt="Thumbnail for ${article.title}" loading="lazy">` : ""}
