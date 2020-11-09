@@ -10,7 +10,7 @@
 	
 	<h2><%- title %></h2>
 	
-	<p class="tagline"><%- description %><% if (tag === "series") { %><br><br><a href="https://docs.google.com/forms/d/e/1FAIpQLSdeDSKrU16ouavLAGjsJvIb2fsCvX5RoP-R7pA06Ddho6bT1Q/viewform">Submit Philosophy Smack questions or letters to the editor</a><% } %></p>
+	<p class="tagline"><%- description %><% if (tag === "series") { %><br><br><a href="https://docs.google.com/forms/d/e/1FAIpQLSdeDSKrU16ouavLAGjsJvIb2fsCvX5RoP-R7pA06Ddho6bT1Q/viewform">Submit Philosophy Smack Questions or Letters To The Editor</a><% } %></p>
 	
 	<%- include("./partials/articles.ejs", {articles: tag === "featured" ? articles.sort((a, b) => b.date_js - a.date_js, 0) : articles.filter(_ => _.tags.indexOf(tag) !== -1).sort((a, b) => b.date_js - a.date_js, 0), q: `#${tag}`}) %>
 </main>
