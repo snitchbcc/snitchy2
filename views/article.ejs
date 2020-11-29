@@ -14,18 +14,18 @@
 			<%- article.rendered %>
 		</section>
 
-		<h3>Recommended Articles</h3>
-		<%- include("./partials/articles.ejs", {articles: getRecommended(article)}) %>
-
 		<% if (article.series) { %>
 			<section class="article-series">
 				<h3>Articles In The Same Series</h3>
 
 				<p>This article is part of the <strong><%= article.series %></strong> series.</p>
 
-				<%- include("./partials/articles.ejs", {articles: getSeries(article.series), q: `:${article.series}`}) %>
+				<%- include("./partials/articles.ejs", {articles: getSeries(article.series).reverse(), q: `:${article.series}`}) %>
 			</section>
 		<% } %>
+
+		<h3>Recommended Articles</h3>
+		<%- include("./partials/articles.ejs", {articles: getRecommended(article)}) %>
 	</article>
 </main>
 
