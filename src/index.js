@@ -124,9 +124,8 @@ function render(name, req, data) {
 			return articles.filter(_ => _.series === series).sort((a, b) => a.date_js - b.date_js, 0);
 		},
 		firstTag(article) {
-			const a = (article.tags[0] === "featured" ? article.tags.slice(1) : articles.tags);
-			if (!a) return;
-			return a[0];
+			if (!article.tags[0]) return;
+			return article.tags[0];
 		},
 		getRecommended(article) {
 			const priority_tag = this.firstTag(article);
