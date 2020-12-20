@@ -693,6 +693,14 @@ h3 {
 		border: 1px solid black;
 
 		width: 50%;
+
+		@media only screen and (max-width: 1200px) {
+			width: 75%;
+		}
+
+		@media only screen and (max-width: 1000px) {
+			width: 100%;
+		}
 	}
 
 	&-load_more {
