@@ -54,26 +54,56 @@ function processArticles() {
 	for (const year of fs.readdirSync(articlesRoot).filter(_ => _.startsWith("20"))) {
 		for (const month of fs.readdirSync(path.join(articlesRoot, year))) {
 			for (const article of fs.readdirSync(path.join(articlesRoot, year, month))) {
-				const contents = fs.readFileSync(path.join(articlesRoot, year, month, article)).toString();
-				const fm = frontMatter(contents);
-				articles.push({
-					slug: article.slice(0, article.length - 3),
-					title: fm.attributes.title,
-					authors: fm.attributes.authors,
-					description: fm.attributes.description,
-					date: {
-						year: parseInt(year),
-						month: parseInt(month),
-						day: fm.attributes.date
-					},
-					ribbon: fm.attributes.ribbon,
-					thumbnail: fm.attributes.thumbnail ? (fm.attributes.thumbnail.startsWith("content://") ? `/content/${fm.attributes.thumbnail.slice(10)}` : fm.attributes.thumbnail) : undefined,
-					date_js: new Date(parseInt(year), parseInt(month), fm.attributes.date),
-					tags: fm.attributes.tags,
-					series: fm.attributes.series,
-					body: fm.body,
-					rendered: marked(fm.body)
-				});
+				switch (path.extname(article)) {
+					case ".json":
+						const data = JSON.parse(fs.readFileSync(path.join(articlesRoot, year, month, article)).toString());
+						articles.push({
+							type: "quiz",
+
+							slug: article.slice(0, article.length - 5),
+							title: data.title,
+							authors: data.authors,
+							description: data.description,
+							tags: data.tags,
+							thumbnail: data.thumbnail ? (data.thumbnail.startsWith("content://") ? `/content/${data.thumbnail.slice(10)}` : data.thumbnail) : undefined,
+
+							date: {
+								year: parseInt(year),
+								month: parseInt(month),
+								day: data.date
+							},
+							date_js: new Date(parseInt(year), parseInt(month), data.date),
+
+							data
+						});
+						break;
+					case ".md":
+						const contents = fs.readFileSync(path.join(articlesRoot, year, month, article)).toString();
+						const fm = frontMatter(contents);
+						articles.push({
+							type: "article",
+
+							slug: article.slice(0, article.length - 3),
+							title: fm.attributes.title,
+							authors: fm.attributes.authors,
+							description: fm.attributes.description,
+							date: {
+								year: parseInt(year),
+								month: parseInt(month),
+								day: fm.attributes.date
+							},
+							ribbon: fm.attributes.ribbon,
+							thumbnail: fm.attributes.thumbnail ? (fm.attributes.thumbnail.startsWith("content://") ? `/content/${fm.attributes.thumbnail.slice(10)}` : fm.attributes.thumbnail) : undefined,
+							date_js: new Date(parseInt(year), parseInt(month), fm.attributes.date),
+							tags: fm.attributes.tags,
+							series: fm.attributes.series,
+							body: fm.body,
+							rendered: marked(fm.body)
+						});
+						break;
+					default:
+						break;
+				}
 			}
 		}
 	}
@@ -113,6 +143,27 @@ app.addHook("onResponse", (req, res, next) => {
 });
 
 processArticles();
+const ads = fs.readdirSync(path.join(__dirname, "..", "static", "ads"));
+
+function shuffle(a) {
+	var array = a.map(_ => _);
+	var currentIndex = array.length, temporaryValue, randomIndex;
+  
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+  
+	  // Pick a remaining element...
+	  randomIndex = Math.floor(Math.random() * currentIndex);
+	  currentIndex -= 1;
+  
+	  // And swap it with the current element.
+	  temporaryValue = array[currentIndex];
+	  array[currentIndex] = array[randomIndex];
+	  array[randomIndex] = temporaryValue;
+	}
+  
+	return array;
+}
 
 function render(name, req, data) {
 	return ejs.renderFile(path.join(__dirname, "..", "views", name), {
@@ -134,7 +185,9 @@ function render(name, req, data) {
 		quote (string) {
 			return string.replace(/"/g, "&quot;");
 		},
+		shuffle,		  
 		queryArticles,
+		ad_list: shuffle(ads),
 		dark: req.cookies.theme === "dark",
 		...data
 	}, {
@@ -315,9 +368,20 @@ app.get("/article/:slug", (req, res) => {
 	}
 
 	res.type("text/html").code(200);
-	return render("article.ejs", req, {
-		article
-	});
+	switch (article.type) {
+		case "article":
+			return render("article.ejs", req, {
+				article
+			});
+
+		case "quiz":
+			return render("quiz.ejs", req, {
+				quiz: article
+			});
+
+		default:
+			return "joe mama";
+	}
 });
 
 app.get("/query", (req, res) => {
@@ -337,6 +401,13 @@ app.get("/sitemap.xml", (req, res) => {
 	res.type("text/xml").code(200);
 	return render("sitemap.ejs", req, {
 		articles
+	});
+});
+
+app.get("/q", (req, res) => {
+	res.type("text/html").code(200);
+	return render("quiz.ejs", req, {
+		
 	});
 });
 

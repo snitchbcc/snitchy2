@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="468"
+   height="60"
+   viewBox="0 0 123.825 15.875"
+   version="1.1"
+   id="svg1220"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="missing1.svg">
+  <defs
+     id="defs1214" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2"
+     inkscape:cx="248.26517"
+     inkscape:cy="-20.655636"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="980"
+     inkscape:window-y="2151"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata1217">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:0.997;fill:#ffffff;fill-opacity:1;stroke-width:11.2937"
+       id="rect839"
+       width="123.825"
+       height="15.875"
+       x="0"
+       y="0"
+       ry="0"
+       rx="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="5.2916675"
+       y="11.785973"
+       id="text1785"><tspan
+         sodipodi:role="line"
+         id="tspan1783"
+         x="5.2916675"
+         y="11.785973"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-family:Inter;-inkscape-font-specification:'Inter Heavy';fill:#ff0000;stroke-width:0.264583">MISSING</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:0.75;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="56.790924"
+       y="7.5873528"
+       id="text1789"><tspan
+         sodipodi:role="line"
+         id="tspan1787"
+         x="56.790924"
+         y="7.5873528"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:4.93889px;font-family:Inter;-inkscape-font-specification:'Inter Semi-Bold';stroke-width:0.264583">Samuel Levine</tspan><tspan
+         sodipodi:role="line"
+         x="56.790924"
+         y="11.29152"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;font-family:Inter;-inkscape-font-specification:Inter;stroke-width:0.264583"
+         id="tspan1821">Principal Asst High</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.11667px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="96.500954"
+       y="5.841125"
+       id="text1789-6"><tspan
+         sodipodi:role="line"
+         id="tspan1787-0"
+         x="96.500954"
+         y="5.841125"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.11667px;font-family:Inter;-inkscape-font-specification:Inter;stroke-width:0.264583">Hasn't replied to our</tspan><tspan
+         sodipodi:role="line"
+         x="96.500954"
+         y="8.5147734"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.11667px;font-family:Inter;-inkscape-font-specification:Inter;stroke-width:0.264583"
+         id="tspan1809">poster approval request</tspan><tspan
+         sodipodi:role="line"
+         x="96.500954"
+         y="11.188422"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.11667px;font-family:Inter;-inkscape-font-specification:Inter;stroke-width:0.264583"
+         id="tspan1815">for 1.5 years</tspan></text>
+  </g>
+</svg>

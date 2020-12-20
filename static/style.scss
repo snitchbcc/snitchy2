@@ -444,10 +444,44 @@ h3 {
 		padding: 40px;
 	}
 
+	&-title {
+		&>h2 {
+			margin-bottom: 10px;
+	
+			font-size: 35pt;
+		}
+	
+		&>span {
+			display: block;
+			
+			margin-top: 0;
+			margin-bottom: 50px;
+	
+			color: rgba(0, 0, 0, 0.75);
+			font-size: 20pt;
+			font-weight: 600;
+		}
+
+		.quiz-thumbnail {
+			margin-bottom: 20px;
+		
+			border-radius: 3px;
+		
+			max-height: 200px;
+		
+			cursor: pointer;
+			transition: 0.2s border-radius;
+	
+			&:hover {
+				border-radius: 7px;
+			}
+		}
+	}
+
 	h3 {
 		margin-top: 0;
 
-		font-size: 20pt;
+		font-size: 25pt;
 	}
 
 	&-choices {
@@ -459,18 +493,19 @@ h3 {
 		&>* {
 			display: flex;
 
-			border: 3px solid #ececec;
+			border: 3px solid black;
 			border-radius: 5px;
 
 			padding: 10px;
 
-			color: #c9c9c9;
+			color: black;
 
 			cursor: pointer;
 			transition: 0.2s all;
 
 			&>span {
 				margin: auto;
+				padding: 0px 20px;
 				align-self: center;
 
 				font-size: 20pt;
@@ -478,12 +513,7 @@ h3 {
 				text-align: center;
 			}
 
-			&:hover {
-				border-color: black;
-				color: black;
-			}
-
-			&.selected {
+			&:hover, &.selected {
 				border-color: black;
 				color: white;
 				background-color: black;
@@ -492,6 +522,73 @@ h3 {
 			// &:not(:last-child) {
 			// 	margin-bottom: 10px;
 			// }
+		}
+	}
+
+	&-results {
+		display: none;
+
+		&.visible {
+			display: block;
+		}
+
+		&>h3 {
+			margin: 0;
+		}
+
+		&>p {
+			margin-top: 10px;
+			margin-bottom: 30px;
+		}
+
+		&>.quiz-result {
+			display: flex;
+
+			margin-bottom: 10px;
+
+			align-items: center;
+			justify-content: space-between;
+
+			&>span {
+				font-size: 18pt;
+				font-weight: 500;
+			}
+		}
+	}
+}
+
+.progress {
+	position: relative;
+	display: inline-block;
+
+	border-radius: 30px;
+
+	width: 50%;
+	height: 30px;
+	
+	overflow: hidden;
+	background-color: #dadada;
+
+	&-fill {
+		position: absolute;
+
+		top: 0;
+		left: 0;
+
+		height: 30px;
+
+		background-color: black;
+
+		&>span {
+			position: absolute;
+
+			top: 50%;
+			right: 10px;
+
+			color: white;
+			font-weight: bold;
+
+			transform: translate(0, -50%);
 		}
 	}
 }
@@ -592,6 +689,7 @@ h3 {
 
 		margin: auto;
 		margin-top: 20px;
+		margin-bottom: 20px;
 		border: 1px solid black;
 
 		width: 50%;
@@ -716,4 +814,17 @@ code {
 
 a {
 	color: #3772FF;
+}
+
+hr {
+	margin: 24px 0;
+
+	border: 0;
+	border-radius: 5px;
+
+	padding: 0;
+
+	height: .25em;
+	
+	background-color: black;
 }

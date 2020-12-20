@@ -1,4 +1,4 @@
-<section class="articles" data-q="<%- typeof q === 'undefined' ? '' : q %>">
+<section class="articles" data-ads="<%- typeof ads === 'undefined' ? 'no' : (ads ? 'yes' : 'no') %>" data-q="<%- typeof q === 'undefined' ? '' : q %>">
 	<div class="articles-list">
 		<% for (const article of
 				articles.slice(0, 6)
@@ -17,7 +17,11 @@
 			</a>
 		<% } %>
 	</div>
-	
+
+	<% if (typeof ads !== 'undefined' && ads) { %>
+		<img class="articles-ad" src="/ads/<%- ad_list[0] %>">
+	<% } %>
+
 	<% if (typeof q !== 'undefined') { %>
 		<button class="articles-load_more">Load More</button>
 	<% } %>

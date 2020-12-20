@@ -1,0 +1,44 @@
+<%- include("./partials/head.ejs", {title: quiz.title, image: quiz.thumbnail, authors: quiz.authors, description: quiz.description, dark}) %>
+<%- include("./partials/nav.ejs") %>
+
+<main>
+	<article class="quiz">
+		<div class="quiz-title">
+            <h2><%= quiz.title %></h2>
+		    <span><%- quiz.authors %> &bull; <%- months[quiz.date.month - 1] %> <%- quiz.date.day %>, <%- quiz.date.year %></span>
+
+            <% if (quiz.thumbnail) { %>
+                <img src="<%- quiz.thumbnail %>" alt="Thumbnail for <%- quote(`"${quiz.title}"`) %>" class="quiz-thumbnail">
+            <% } %>
+
+            <p><%= quiz.description %></p>
+        </div>
+
+        <% for (const question of quiz.data.questions) { %>
+            <div class="quiz-question">
+                <h3><%= question.prompt %></h3>
+    
+                <div class="quiz-choices">
+                    <% for (const answer of shuffle(question.answers)) { %>        
+                        <div data-score="<%= answer.score %>"><span><%= answer.text %></span></div>
+                    <% } %>
+                </div>
+            </div>
+        <% } %>
+
+        <div class="quiz-results">
+            <h3 class="quiz-results-title">You're []</h3>
+
+            <p class="quiz-results-description">...</p>
+
+            <% for (const result of Object.keys(quiz.data.results)) { %>
+                <div class="quiz-result" data-score="<%= result %>">
+                    <span><%= quiz.data.results[result].title %></span> <div class="progress"><div class="progress-fill" style="width: 50%;"><span>50%</span></div></div>
+                </div>
+            <% } %>
+        </div>
+	</article>
+</main>
+
+<script>const quiz = <%- JSON.stringify(quiz.data) %>;</script>
+<%- include("./partials/footer.ejs") %>
