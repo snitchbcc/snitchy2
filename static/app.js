@@ -1,7 +1,7 @@
 function randomAd(idx) {
 	var ad = document.createElement("img");
 	ad.classList.add("articles-ad");
-	ad.src = `/ads/${ads[idx % ads.length]}`;
+	ad.src = `/bigfunny/${ads[idx % ads.length]}`;
 	return ad;
 }
 

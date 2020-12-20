@@ -143,7 +143,7 @@ app.addHook("onResponse", (req, res, next) => {
 });
 
 processArticles();
-const ads = fs.readdirSync(path.join(__dirname, "..", "static", "ads"));
+const ads = fs.readdirSync(path.join(__dirname, "..", "static", "bigfunny"));
 
 function shuffle(a) {
 	var array = a.map(_ => _);
