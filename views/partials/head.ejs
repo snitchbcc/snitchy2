@@ -24,11 +24,11 @@
 <meta property="og:site_name" content="The Snitch">
 <meta property="og:description" content="<%- quote(description) %>">
 <meta property="og:url" content="https://snitchbcc.com/">
-<meta property="og:image" content="https://snitchbcc.com<%- image %>">
+<meta property="og:image" content="<%- image.startsWith('/') ? `https://snitchbcc.com${image}` : image %>">
 <% if (typeof authors !== "undefined") { %> <meta property="article:author" content="<%= authors %>"> <% } %>
 
 <!-- Twitter -->
-<meta name="twitter:image" content="https://snitchbcc.com<%- image %>">
+<meta name="twitter:image" content="<%- image.startsWith('/') ? `https://snitchbcc.com${image}` : image %>">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image:alt" content="The Snitch - <%- quote(title) %>">
 <meta name="twitter:site" content="@snitchbcc">
