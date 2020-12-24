@@ -78,6 +78,14 @@ body {
 			color: orangered;
 		}
 
+		.quiz-choices>*:hover {
+			background-color: lighten(orangered, 15%);
+		}
+
+		.quiz .selected {
+			background-color: orangered;
+		}
+
 		.nav {
 			box-shadow: 0 0 5px dark-theme-gray(0.5);
 
@@ -453,7 +461,7 @@ h3 {
 
 			padding: 12.5px;
 
-			color: black;
+			color: --body-color;
 			cursor: pointer;
 
 			&:hover {
