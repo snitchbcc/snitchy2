@@ -65,6 +65,7 @@ function processArticles() {
 							authors: data.authors,
 							description: data.description,
 							tags: data.tags,
+							series: data.series,
 							thumbnail: data.thumbnail ? (data.thumbnail.startsWith("content://") ? `/content/${data.thumbnail.slice(10)}` : data.thumbnail) : undefined,
 
 							date: {
