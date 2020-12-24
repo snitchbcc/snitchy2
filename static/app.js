@@ -2,6 +2,7 @@ function randomAd(idx) {
 	var ad = document.createElement("img");
 	ad.classList.add("articles-ad");
 	ad.src = `/bigfunny/${ads[idx % ads.length]}`;
+	ad.alt = "Big Funny Banner";
 	return ad;
 }
 
