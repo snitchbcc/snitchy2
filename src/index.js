@@ -428,6 +428,38 @@ app.get("/content", async (req, res) => {
 	return (await Promise.all(f)).reduce((a, b) => {a[b[0]] = b[1]; return a;}, {});;
 });
 
+app.get("/stats", (req, res) => {
+	if (req.query.code !== args.code) {
+		console.log(`Invalid content code - got: ${req.query.code}, expected: ${args.code}`);
+		res.code(401).send(new Error("Invalid code"));
+		return;
+	}
+
+	let day = -1;
+	let days = {};
+	const lines = fs.readFileSync(path.join(__dirname, "..", "ana")).toString().split("\n");
+	for (const line of lines) {
+		let comp = line.split(" ");
+		if (comp.length < 2) break;
+		if (comp[3].indexOf("/stats") !== -1 || comp[3].indexOf("/content") !== -1) continue;
+
+		let date = new Date(parseInt(comp[0]));
+		if (!days[date.toDateString()]) days[date.toDateString()] = {total: 0, unique: new Set()};
+		days[date.toDateString()].total += 1;
+		days[date.toDateString()].unique.add(comp[1]);
+
+		if (date.toDateString() !== day) {
+			if (day !== -1) {
+				days[day].unique = days[day].unique.size;
+			}
+			day = date.toDateString();
+		}
+	}
+	days[day].unique = days[day].unique.size;
+
+	return days;
+});
+
 app.post("/content", (req, res) => {
 	if (!req.isMultipart()) {
 		reply.code(400).send(new Error("Request is not multipart"));
