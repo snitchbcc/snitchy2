@@ -25,11 +25,6 @@
 		"description": "Was once told that “Theatre isn’t all there is to life.” In a dejected trance he found himself waking up in The Snitch’s office, and decided to stay out of gratitude for the staff not eating him."
 	},
 	{
-		"name": "Evan Song",
-		"tagline": "Editor",
-		"description": "I can rite rilly nice. ME see’s grammer mis takes, and fix they. punctiation and grammer, I can fixes; But myself is a best at editor."
-	},
-	{
 		"name": "Sebastián Valderrama",
 		"tagline": "Baron Artist",
 		"description": "fdhbgaIjkf lskZJDngph tfwajknxzkc vbkzjsfhekjsdh fjkohfkjn hfjnpudfled kjhno,cvbnmbvc."
@@ -45,11 +40,6 @@
 		"description": "How did I get here?"
 	},
 	{
-		"name": "Bruno Chong",
-		"tagline": "Writer, IT",
-		"description": "<i>This bio has been redacted by The Administration for clarity.</i>"
-	},
-	{
 		"name": "Liv Dentoni",
 		"tagline": "Outreach",
 		"description": "We are decidedly <i>not</i> all in this together."
@@ -60,9 +50,19 @@
 		"description": "Can both doodle pictures and hold common household items. You decide."
 	},
 	{
-		"name": "Erica Molot",
-		"tagline": "Writer",
-		"description": "My three favorite things are dogs and leaving lists unfinished."
+		"name": "Bruno Chong",
+		"tagline": "Writer, IT",
+		"description": "<i>This bio has been redacted by The Administration for clarity.</i>"
+	},
+	{
+		"name": "Maya Tarnoff",
+		"tagline": "Editor",
+		"description": "Edits Dale's stream of consciousness."
+	},
+	{
+		"name": "Alana Sonfield",
+		"tagline": "Editor",
+		"description": "Edits articles."
 	},
 	{
 		"name": "Dr. Verman Politiczuck",
