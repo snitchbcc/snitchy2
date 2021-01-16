@@ -428,6 +428,7 @@ app.get("/content", async (req, res) => {
 	return (await Promise.all(f)).reduce((a, b) => {a[b[0]] = b[1]; return a;}, {});;
 });
 
+const url = require("url");
 app.get("/stats", (req, res) => {
 	if (req.query.code !== args.code) {
 		console.log(`Invalid content code - got: ${req.query.code}, expected: ${args.code}`);
@@ -437,11 +438,17 @@ app.get("/stats", (req, res) => {
 
 	let day = -1;
 	let days = {};
+	let articles = {};
 	const lines = fs.readFileSync(path.join(__dirname, "..", "ana")).toString().split("\n");
 	for (const line of lines) {
 		let comp = line.split(" ");
 		if (comp.length < 2) break;
 		if (comp[3].indexOf("/stats") !== -1 || comp[3].indexOf("/content") !== -1) continue;
+		if (comp[3].startsWith("/article")) {
+			let a = url.parse(comp[3]).pathname;
+			if (!articles[a]) articles[a] = new Set();
+			articles[a].add(comp[1]);
+		}
 
 		let date = new Date(parseInt(comp[0]));
 		if (!days[date.toDateString()]) days[date.toDateString()] = {total: 0, unique: new Set()};
@@ -451,11 +458,16 @@ app.get("/stats", (req, res) => {
 		if (date.toDateString() !== day) {
 			if (day !== -1) {
 				days[day].unique = days[day].unique.size;
+				days[day].article = Object.keys(articles).sort((a, b) => articles[b].size-articles[a].size)[0];
+				days[day].article_count = articles[days[day].article].size;
+				articles = {};
 			}
 			day = date.toDateString();
 		}
 	}
 	days[day].unique = days[day].unique.size;
+	days[day].article = Object.keys(articles).sort((a, b) => articles[b].size-articles[a].size)[0];
+	days[day].article_count = articles[days[day].article].size;
 
 	return days;
 });
