@@ -429,6 +429,10 @@ app.get("/content", async (req, res) => {
 });
 
 const url = require("url");
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 app.get("/stats", (req, res) => {
 	if (req.query.code !== args.code) {
 		console.log(`Invalid content code - got: ${req.query.code}, expected: ${args.code}`);
@@ -439,7 +443,7 @@ app.get("/stats", (req, res) => {
 	let day = -1;
 	let days = {};
 	let articles = {};
-	const lines = fs.readFileSync(path.join(__dirname, "..", "ana")).toString().split("\n");
+	let lines = fs.readFileSync(path.join(__dirname, "..", "ana")).toString().split("\n");
 	for (const line of lines) {
 		let comp = line.split(" ");
 		if (comp.length < 2) break;
@@ -451,7 +455,8 @@ app.get("/stats", (req, res) => {
 		}
 
 		let date = new Date(parseInt(comp[0]));
-		const ds = date.toLocaleDateString("EN", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+		// let ds = date.toLocaleDateString("EN", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+		let ds = `${dayNames[date.getDay()]}, ${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 
 		if (!days[ds]) days[ds] = {total: 0, unique: new Set()};
 		days[ds].total += 1;
