@@ -451,18 +451,20 @@ app.get("/stats", (req, res) => {
 		}
 
 		let date = new Date(parseInt(comp[0]));
-		if (!days[date.toDateString()]) days[date.toDateString()] = {total: 0, unique: new Set()};
-		days[date.toDateString()].total += 1;
-		days[date.toDateString()].unique.add(comp[1]);
+		const ds = date.toLocaleDateString("EN", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-		if (date.toDateString() !== day) {
+		if (!days[ds]) days[ds] = {total: 0, unique: new Set()};
+		days[ds].total += 1;
+		days[ds].unique.add(comp[1]);
+
+		if (ds !== day) {
 			if (day !== -1) {
 				days[day].unique = days[day].unique.size;
 				days[day].article = Object.keys(articles).sort((a, b) => articles[b].size-articles[a].size)[0];
 				days[day].article_count = articles[days[day].article].size;
 				articles = {};
 			}
-			day = date.toDateString();
+			day = ds;
 		}
 	}
 	days[day].unique = days[day].unique.size;
