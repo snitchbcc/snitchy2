@@ -73,7 +73,7 @@ function processArticles() {
 								month: parseInt(month),
 								day: data.date
 							},
-							date_js: new Date(parseInt(year), parseInt(month), data.date),
+							date_js: new Date(parseInt(year), parseInt(month)-1, data.date),
 
 							data
 						});
@@ -95,7 +95,7 @@ function processArticles() {
 							},
 							ribbon: fm.attributes.ribbon,
 							thumbnail: fm.attributes.thumbnail ? (fm.attributes.thumbnail.startsWith("content://") ? `/content/${fm.attributes.thumbnail.slice(10)}` : fm.attributes.thumbnail) : undefined,
-							date_js: new Date(parseInt(year), parseInt(month), fm.attributes.date),
+							date_js: new Date(parseInt(year), parseInt(month)-1, fm.attributes.date),
 							tags: fm.attributes.tags,
 							series: fm.attributes.series,
 							body: fm.body,
