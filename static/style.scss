@@ -677,9 +677,15 @@ h3 {
 	&-ad {
 		display: block;
 
-		margin: auto;
 		margin-top: 20px;
 		margin-bottom: 20px;
+	}
+
+	&-ad>img {
+		display: block;
+
+		margin: auto;
+
 		border: 1px solid black;
 
 		width: 50%;

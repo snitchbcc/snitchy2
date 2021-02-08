@@ -1,8 +1,11 @@
 function randomAd(idx) {
-	var ad = document.createElement("img");
+	var ad = document.createElement("a");
+	var adImg = document.createElement("img");
 	ad.classList.add("articles-ad");
-	ad.src = `/bigfunny/${ads[idx % ads.length]}`;
-	ad.alt = "Big Funny Banner";
+	adImg.src = `/bigfunny/${ads[idx % ads.length]}`;
+	adImg.alt = "Big Funny Banner";
+	ad.appendChild(adImg);
+	if (ad_links[ads[idx % ads.length]]) ad.href = ad_links[ads[idx % ads.length]];
 	return ad;
 }
 

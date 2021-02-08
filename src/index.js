@@ -110,6 +110,7 @@ function processArticles() {
 	}
 }
 
+const adLinks = JSON.parse(fs.readFileSync(path.join(__dirname, "ads.json")).toString());
 const people = JSON.parse(fs.readFileSync(path.join(__dirname, "people.json")).toString());
 
 app.register(
@@ -186,9 +187,10 @@ function render(name, req, data) {
 		quote (string) {
 			return string.replace(/"/g, "&quot;");
 		},
-		shuffle,		  
+		shuffle,
 		queryArticles,
 		ad_list: shuffle(ads),
+		ad_links: adLinks,
 		dark: req.cookies.theme === "dark",
 		...data
 	}, {
@@ -198,51 +200,6 @@ function render(name, req, data) {
 
 function push(req, res) {
 	if (!req.raw.stream) return;
-
-	// Fonts do weird flashy things in Chrome (crying emoji)
-	// req.raw.stream.pushStream(
-	// 	{ ":path": `/Inter-normal.woff2` },
-	// 	(err, stream) => {
-	// 		if (err) return;
-	// 		stream.respondWithFile(path.join(__dirname, "../static/Inter-normal.woff2"), {
-	// 		"content-type": "application/font-woff2",
-	// 		"cache-control": "public, max-age=0"
-	// 	});
-	// }
-	// );
-
-	// req.raw.stream.pushStream(
-	// 	{ ":path": `/style.css` },
-	// 	(err, stream) => {
-	// 		if (err) return;
-	// 		stream.respondWithFile(path.join(__dirname, "../static/style.css"), {
-	// 		"content-type": "text/css",
-	// 		"cache-control": "public, max-age=0"
-	// 	});
-	// }
-	// );
-
-	// req.raw.stream.pushStream(
-	// 	{ ":path": `/img/tophat.svg` },
-	// 	(err, stream) => {
-	// 		if (err) return;
-	// 		stream.respondWithFile(path.join(__dirname, "../static/img/tophat.svg"), {
-	// 		"content-type": "image/svg+xml",
-	// 		"cache-control": "public, max-age=0"
-	// 	});
-	// }
-	// );
-
-	// req.raw.stream.pushStream(
-	// 	{ ":path": `/app.js` },
-	// 	(err, stream) => {
-	// 		if (err) return;
-	// 		stream.respondWithFile(path.join(__dirname, "../static/app.js"), {
-	// 		"content-type": "text/javascript",
-	// 		"cache-control": "public, max-age=0"
-	// 	});
-	// }
-	// );
 }
 
 function queryArticles(query) {
@@ -403,13 +360,6 @@ app.get("/sitemap.xml", (req, res) => {
 	res.type("text/xml").code(200);
 	return render("sitemap.ejs", req, {
 		articles
-	});
-});
-
-app.get("/q", (req, res) => {
-	res.type("text/html").code(200);
-	return render("quiz.ejs", req, {
-		
 	});
 });
 

@@ -19,7 +19,7 @@
 	</div>
 
 	<% if (typeof ads !== 'undefined' && ads) { %>
-		<img class="articles-ad" src="/bigfunny/<%- ad_list[0] %>" alt="Big Funny Banner">
+		<a class="articles-ad" <% if (ad_links[ad_list[0]]) { %>href="<%- ad_links[ad_list[0]] %>"<%}%>><img src="/bigfunny/<%- ad_list[0] %>" alt="Big Funny Banner"></a>
 	<% } %>
 
 	<% if (typeof q !== 'undefined') { %>
