@@ -45,6 +45,11 @@
 		"description": "We are decidedly <i>not</i> all in this together."
 	},
 	{
+		"name": "Maya Tarnoff",
+		"tagline": "Editor",
+		"description": "Don’t bother reading this bio."
+	},
+	{
 		"name": "Nicholas Daum",
 		"tagline": "Writer",
 		"description": "What they don’t know is that I’m using a vast sweatshop of monkeys to write all my articles. One day they’ll finish one."
@@ -63,11 +68,6 @@
 		"name": "Bruno Chong",
 		"tagline": "Writer, IT",
 		"description": "<i>This bio has been redacted by The Administration for clarity.</i>"
-	},
-	{
-		"name": "Maya Tarnoff",
-		"tagline": "Editor",
-		"description": "Don’t bother reading this bio."
 	},
 	{
 		"name": "Evan Song",
