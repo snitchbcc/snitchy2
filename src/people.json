@@ -45,6 +45,16 @@
 		"description": "We are decidedly <i>not</i> all in this together."
 	},
 	{
+		"name": "Nicholas Daum",
+		"tagline": "Writer",
+		"description": "What they don’t know is that I’m using a vast sweatshop of monkeys to write all my articles. One day they’ll finish one.",
+	},
+	{
+		"name": "Alana Sonfield",
+		"tagline": "Editor",
+		"description": "Currently locked in a room with a computer that can only open unedited <i>Snitch</i> articles."
+	},
+	{
 		"name": "Natalie Weng",
 		"tagline": "Draw-er",
 		"description": "Can both doodle pictures and hold common household items. You decide."
