@@ -51,7 +51,7 @@ function processArticles() {
 		cwd: path.join(__dirname, "..", "data")
 	});
 	articles = [];
-	for (const year of fs.readdirSync(articlesRoot).filter(_ => _.startsWith("20"))) {
+	for (const year of fs.readdirSync(articlesRoot).filter(_ => /^\+?\d+$/.test(_))) {
 		for (const month of fs.readdirSync(path.join(articlesRoot, year))) {
 			for (const article of fs.readdirSync(path.join(articlesRoot, year, month))) {
 				switch (path.extname(article)) {
