@@ -1,0 +1,18 @@
+<%- include("./partials/head.ejs", {title, dark}) %>
+
+<%- include("./partials/nav.ejs") %>
+
+<main>
+	<div id="top_right">
+		<%- include("./partials/search.ejs") %>
+		<%- include("./partials/art.ejs") %>
+	</div>
+	
+	<h2 style="margin-bottom: 103px;"><%- title %></h2>
+	
+	<%- include("./partials/articles.ejs", {articles: getSeries(title).sort((a, b) => b.date_js - a.date_js, 0), q: `:${title}`, ads: true}) %>
+</main>
+
+<script>const ads = <%- JSON.stringify(ad_list) %>;</script>
+<script>const ad_links = <%- JSON.stringify(ad_links) %>;</script>
+<%- include("./partials/footer.ejs") %>

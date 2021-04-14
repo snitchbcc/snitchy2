@@ -44,6 +44,9 @@ setInterval(() => {
 }, 30000);
 
 var articles = [];
+var series = {};
+var mapped_series = {};
+
 const articlesRoot = path.join(__dirname, "..", "data", "articles");
 function processArticles() {
 	if (!fs.existsSync(path.join(__dirname, "..", "data"))) fs.mkdirSync(path.join(__dirname, "..", "data"));
@@ -51,6 +54,13 @@ function processArticles() {
 		cwd: path.join(__dirname, "..", "data")
 	});
 	articles = [];
+	series = JSON.parse(fs.readFileSync(path.join(articlesRoot, "series.json")).toString());
+	mapped_series = {};
+
+	for (const ss of Object.keys(series)) {
+		mapped_series[ss.toLowerCase().replace(/ /g, '-')] = ss;
+	}
+
 	for (const year of fs.readdirSync(articlesRoot).filter(_ => /^\+?\d+$/.test(_))) {
 		for (const month of fs.readdirSync(path.join(articlesRoot, year))) {
 			for (const article of fs.readdirSync(path.join(articlesRoot, year, month))) {
@@ -241,12 +251,23 @@ app.get("/search", (req, res) => {
 app.get("/series", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
-	return render("section.ejs", req, {
-		articles,
-		tag: "series",
+	return render("series.ejs", req, {
+		series
+	});
+});
 
-		title: "Series",
-		description: "Individually horrible articles, combined."
+app.get("/series/:series", (req, res) => {
+	// console.log(series);
+	if (!(req.params.series in mapped_series)) {
+		res.type("text/html").code(404);
+		return render("404.ejs", req, {});
+	}
+
+	res.type("text/html").code(200);
+	push(req, res);
+	return render("series_section.ejs", req, {
+		series,
+		title: mapped_series[req.params.series]
 	});
 });
 

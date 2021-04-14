@@ -1,0 +1,24 @@
+<%- include("./partials/head.ejs", {title: "Series", dark}) %>
+
+<%- include("./partials/nav.ejs") %>
+
+<main>
+	<div id="top_right">
+		<%- include("./partials/search.ejs") %>
+		<%- include("./partials/art.ejs") %>
+	</div>
+	
+	<h2>Series</h2>
+	
+	<p class="tagline">Individually horrible articles, combined.</p>
+	
+	<div class="series">
+		<% for (const s of Object.keys(series)) { %>
+			<a href="/series/<%= s.toLowerCase().replace(/ /g, '-') %>">
+				<h3><%= s %></h3>
+
+				<p><%- series[s].description %></p>
+			</a>
+		<% } %>
+	</div>
+</main>
