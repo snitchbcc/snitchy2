@@ -46,6 +46,7 @@ setInterval(() => {
 var articles = [];
 var series = {};
 var mapped_series = {};
+var people = [];
 
 const articlesRoot = path.join(__dirname, "..", "data", "articles");
 function processArticles() {
@@ -56,6 +57,7 @@ function processArticles() {
 	articles = [];
 	series = JSON.parse(fs.readFileSync(path.join(articlesRoot, "series.json")).toString());
 	mapped_series = {};
+	people = JSON.parse(fs.readFileSync(path.join(articlesRoot, "people.json")).toString());
 
 	for (const ss of Object.keys(series)) {
 		mapped_series[ss.toLowerCase().replace(/ /g, '-')] = ss;
@@ -121,7 +123,6 @@ function processArticles() {
 }
 
 const adLinks = JSON.parse(fs.readFileSync(path.join(__dirname, "ads.json")).toString());
-const people = JSON.parse(fs.readFileSync(path.join(__dirname, "people.json")).toString());
 
 app.register(
 	require("fastify-compress"),
