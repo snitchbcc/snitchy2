@@ -185,7 +185,7 @@ function render(name, req, data) {
 			return articles.sort((a, b) => b.date_js - a.date_js, 0);
 		},
 		getSeries(series) {
-			return articles.filter(_ => _.series === series).sort((a, b) => a.date_js - b.date_js, 0);
+			return articles.filter(_ => _.series === series).sort((a, b) => b.date_js - a.date_js, 0);
 		},
 		firstTag(article) {
 			if (!article.tags[0]) return;
@@ -401,6 +401,7 @@ app.get("/content", async (req, res) => {
 });
 
 const url = require("url");
+const { getServers } = require("dns");
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
