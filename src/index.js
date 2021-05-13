@@ -236,6 +236,10 @@ app.get("/", (req, res) => {
 	});
 });
 
+app.get("/contest", (req, res) => {
+	res.redirect("https://docs.google.com/document/d/1_bfzbyQmubnQGFD0hOUergsJQ86iX0se8hJi4e5SWj8/edit#");
+});
+
 app.get("/search", (req, res) => {
 	if (!req.query.q)
 		return res.redirect("/");

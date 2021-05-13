@@ -73,7 +73,7 @@ body {
 		*::selection {
 			color: black;
 			background-color: orangered;
-		}		
+		}	
 
 		a {
 			color: orangered;
@@ -87,9 +87,11 @@ body {
 			background-color: orangered;
 		}
 
-		.nav {
-			box-shadow: 0 0 5px dark-theme-gray(0.5);
+		.announcement {
+			background-color: rgb(66, 66, 66);
+		}
 
+		.nav {
 			&-title>img {
 				filter: invert(0.8);
 			}
@@ -133,6 +135,24 @@ body {
 		footer {
 			background-color: dark-theme-gray(0.1);
 		}
+	}
+}
+
+.announcement {
+	padding: 10px;
+	
+	color: white;
+	font-size: 12pt;
+	text-align: center;
+
+	background-color: black;
+
+	a {
+		color: orangered;
+	}
+
+	@media only screen and (max-width: 1050px) {
+		font-size: 10pt;
 	}
 }
 
