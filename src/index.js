@@ -238,6 +238,7 @@ app.get("/", (req, res) => {
 
 app.get("/contest", (req, res) => {
 	res.redirect("https://docs.google.com/document/d/1_bfzbyQmubnQGFD0hOUergsJQ86iX0se8hJi4e5SWj8/edit#");
+	return;
 });
 
 app.get("/search", (req, res) => {
@@ -410,10 +411,7 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-app.get("/contest", (req, res) => {
-	res.redirect("https://docs.google.com/document/d/1_bfzbyQmubnQGFD0hOUergsJQ86iX0se8hJi4e5SWj8/edit");
-	return;
-});
+
 app.get("/stats", (req, res) => {
 	if (req.query.code !== args.code) {
 		console.log(`Invalid content code - got: ${req.query.code}, expected: ${args.code}`);
