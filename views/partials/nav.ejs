@@ -1,34 +1,37 @@
-<%# <div class="announcement">
+<div class="announcement">
 	<span><strong>MCPS Students:</strong> We're hosting the very first <i>Snitch</i> satirical writing contest from May 17th to June 6th; <a href="/contest">check it out here</a>!</span>
-</div> %>
+</div>
+
+<%
+	const p = getPath(req);
+	const links = [
+		["Latest", "/"],
+		["About", "/about"],
+		["Series", "/series"],
+		["Local", "/local"],
+		["Politics", "/politics"],
+		["Topics", "/topics"],
+		["Culture", "/culture"],
+		["Best Of", "/best-of"],
+		["Contact", "/contact"]
+	];
+%>
 
 <nav class="nav">
-	<a class="nav-title" href="/">
-		<img src="/img/combined_logo.svg" alt="">
-	</a>
-
-	<div class="nav-clickables">
-		<div class="nav-clickables-socials">
-			<a href="/discord"><img src="/img/socials/discord.svg" alt="Discord" style="transform: scale(1.2);"></a>
-			<a href="https://twitter.com/snitchbcc"><img src="/img/socials/twitter.svg" alt="Twitter"></a>
-			<a href="https://instagram.com/snitchbcc"><img src="/img/socials/instagram.svg" alt="Instagram"></a>
-		</div>
-
-		<div class="nav-clickables-links">
-			<a href="/">Latest</a>
-			<a href="/about">About</a>
-			<a href="/series">Series</a>
-			<a href="/local">Local</a>
-			<a href="/politics">Politics</a>
-			<a href="/culture">Culture</a>
-			<a href="/best-of">Best Of</a>
-			<a href="/contact">Contact</a>
-		</div>
+	<div class="nav-brand">
+		<img src="/img/combined_logo.svg" alt="Combined Logo">
+		<p>Democracy bumps into things in darkness</p>
 	</div>
 
-	<div class="nav-opener" onclick="this.parentElement.classList.toggle('open')">
-		<div></div>
-		<div></div>
-		<div></div>
+	<div class="nav-socials">
+		<a href="/discord"><img src="/img/socials/discord.svg" alt="Discord" style="transform: scale(1.2);"></a>
+		<a href="https://twitter.com/snitchbcc"><img src="/img/socials/twitter.svg" alt="Twitter"></a>
+		<a href="https://instagram.com/snitchbcc"><img src="/img/socials/instagram.svg" alt="Instagram"></a>
+	</div>
+
+	<div class="nav-links">
+		<% for (const l of links) { %>
+			<a href="<%- l[1] %>"<%- p == l[1] ? ' class="active"' : '' %>><%= l[0] %></a>
+		<% } %>
 	</div>
 </nav>

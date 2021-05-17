@@ -1,4 +1,4 @@
-<%- include("./partials/head.ejs", {title, dark}) %>
+<%- include("./partials/head.ejs", {title: slugToTitle(topic), dark}) %>
 
 <%- include("./partials/nav.ejs") %>
 
@@ -8,9 +8,9 @@
 		<%- include("./partials/art.ejs") %>
 	</div>
 	
-	<h2 style="margin-bottom: 103px;"><%- title %></h2>
+	<h2 style="margin-bottom: 103px;"><%= slugToTitle(topic) %></h2>
 	
-	<%- include("./partials/articles.ejs", {articles: getSeries(articles, title).sort((a, b) => b.date_js - a.date_js, 0), q: `:${title}`, ads: true}) %>
+	<%- include("./partials/articles.ejs", {articles: articles.filter(_ => _.tags.indexOf(topic) !== -1).sort((a, b) => b.date_js - a.date_js, 0), q: `:#{topic}`, ads: true}) %>
 </main>
 
 <script>const ads = <%- JSON.stringify(ad_list) %>;</script>

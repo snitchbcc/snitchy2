@@ -3,20 +3,20 @@ const args = require("minimist")(process.argv.slice(2));
 if (!args.config) throw new Error("Please specify a config with --config!");
 if (!args.code) throw new Error("Please specify a content code with --code!");
 
-const path = require("path");
-const config = require("./config");
-config.loadConfig(path.join(process.cwd(), args.config));
-
 const fs = require("fs");
-const marked = require("marked");
-const frontMatter = require("front-matter");
-const childProcess = require("child_process");
-const ejs = require("ejs");
+const path = require("path");
 const zlib = require("zlib");
-
-const fastify = require("fastify");
 const pump = require("pump");
+const fastify = require("fastify");
+const childProcess = require("child_process");
+
+const data = require("./data");
+const utils = require("./utils");
+const config = require("./config");
+const render = require("./render");
 const analogger = require("./analogger");
+
+config.loadConfig(path.join(process.cwd(), args.config));
 
 if (config().https) console.log("Detected HTTPS in config! Enabling HTTPS and HTTP/2.0!");
 const app = fastify(config().https ? {
@@ -36,93 +36,14 @@ setInterval(() => {
 		});
 
 		if (out.indexOf("Already up to date.") !== -1) return;
-		processArticles();
+		data.processArticles();
 		console.log(`New out: ${out}`);
 	} catch (err) {
 		console.error(`Encountered error: ${err}`);
 	}
 }, 30000);
 
-var articles = [];
-var series = {};
-var mapped_series = {};
-var people = [];
-
-const articlesRoot = path.join(__dirname, "..", "data", "articles");
-function processArticles() {
-	if (!fs.existsSync(path.join(__dirname, "..", "data"))) fs.mkdirSync(path.join(__dirname, "..", "data"));
-	if (!fs.existsSync(articlesRoot)) childProcess.execSync("git clone https://github.com/snitchbcc/articles", {
-		cwd: path.join(__dirname, "..", "data")
-	});
-	articles = [];
-	series = JSON.parse(fs.readFileSync(path.join(articlesRoot, "series.json")).toString());
-	mapped_series = {};
-	people = JSON.parse(fs.readFileSync(path.join(articlesRoot, "people.json")).toString());
-
-	for (const ss of Object.keys(series)) {
-		mapped_series[ss.toLowerCase().replace(/ /g, '-')] = ss;
-	}
-
-	for (const year of fs.readdirSync(articlesRoot).filter(_ => /^\+?\d+$/.test(_))) {
-		for (const month of fs.readdirSync(path.join(articlesRoot, year))) {
-			for (const article of fs.readdirSync(path.join(articlesRoot, year, month))) {
-				switch (path.extname(article)) {
-					case ".json":
-						const data = JSON.parse(fs.readFileSync(path.join(articlesRoot, year, month, article)).toString());
-						articles.push({
-							type: "quiz",
-
-							slug: article.slice(0, article.length - 5),
-							title: data.title,
-							authors: data.authors,
-							description: data.description,
-							tags: data.tags,
-							series: data.series,
-							thumbnail: data.thumbnail ? (data.thumbnail.startsWith("content://") ? `/content/${data.thumbnail.slice(10)}` : data.thumbnail) : undefined,
-
-							date: {
-								year: parseInt(year),
-								month: parseInt(month),
-								day: data.date
-							},
-							date_js: new Date(parseInt(year), parseInt(month)-1, data.date),
-
-							data
-						});
-						break;
-					case ".md":
-						const contents = fs.readFileSync(path.join(articlesRoot, year, month, article)).toString();
-						const fm = frontMatter(contents);
-						articles.push({
-							type: "article",
-
-							slug: article.slice(0, article.length - 3),
-							title: fm.attributes.title,
-							authors: fm.attributes.authors,
-							description: fm.attributes.description,
-							date: {
-								year: parseInt(year),
-								month: parseInt(month),
-								day: fm.attributes.date
-							},
-							ribbon: fm.attributes.ribbon,
-							thumbnail: fm.attributes.thumbnail ? (fm.attributes.thumbnail.startsWith("content://") ? `/content/${fm.attributes.thumbnail.slice(10)}` : fm.attributes.thumbnail) : undefined,
-							date_js: new Date(parseInt(year), parseInt(month)-1, fm.attributes.date),
-							tags: fm.attributes.tags,
-							series: fm.attributes.series,
-							body: fm.body,
-							rendered: marked(fm.body)
-						});
-						break;
-					default:
-						break;
-				}
-			}
-		}
-	}
-}
-
-const adLinks = JSON.parse(fs.readFileSync(path.join(__dirname, "ads.json")).toString());
+data.processArticles();
 
 app.register(
 	require("fastify-compress"),
@@ -155,84 +76,21 @@ app.addHook("onResponse", (req, res, next) => {
 	next();
 });
 
-processArticles();
-const ads = fs.readdirSync(path.join(__dirname, "..", "static", "bigfunny"));
-
-function shuffle(a) {
-	var array = a.map(_ => _);
-	var currentIndex = array.length, temporaryValue, randomIndex;
-  
-	// While there remain elements to shuffle...
-	while (0 !== currentIndex) {
-  
-	  // Pick a remaining element...
-	  randomIndex = Math.floor(Math.random() * currentIndex);
-	  currentIndex -= 1;
-  
-	  // And swap it with the current element.
-	  temporaryValue = array[currentIndex];
-	  array[currentIndex] = array[randomIndex];
-	  array[randomIndex] = temporaryValue;
-	}
-  
-	return array;
-}
-
-function render(name, req, data) {
-	return ejs.renderFile(path.join(__dirname, "..", "views", name), {
-		months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"],
-		sortByDate(articles) {
-			return articles.sort((a, b) => b.date_js - a.date_js, 0);
-		},
-		getSeries(series) {
-			return articles.filter(_ => _.series === series).sort((a, b) => b.date_js - a.date_js, 0);
-		},
-		firstTag(article) {
-			if (!article.tags[0]) return;
-			return article.tags[0];
-		},
-		getRecommended(article) {
-			const priority_tag = this.firstTag(article);
-			return this.sortByDate(articles).filter(_ => _.slug !== article.slug && this.firstTag(_) === priority_tag);
-		},
-		quote (string) {
-			return string.replace(/"/g, "&quot;");
-		},
-		shuffle,
-		queryArticles,
-		ad_list: shuffle(ads),
-		ad_links: adLinks,
-		dark: req.cookies.theme === "dark",
-		...data
-	}, {
-		cache: false
-	});
-}
+data.processArticles();
 
 function push(req, res) {
 	if (!req.raw.stream) return;
-}
-
-function queryArticles(query) {
-	if (query.startsWith("#")) {
-		if (query.slice(1) === "featured") return articles;
-		return articles.filter(_ => _.tags.indexOf(query.slice(1)) !== -1);
-	} else if (query.startsWith(":")) {
-		return articles.filter(_ => _.series === query.slice(1));
-	}
-
-	return articles.filter(_ => _.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 || _.authors.toLowerCase().indexOf(query.toLowerCase()) !== -1);
 }
 
 app.get("/", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
 	return render("section.ejs", req, {
-		articles,
+		articles: data.articles,
 		tag: "featured",
 
 		title: "The Latest",
-		description: "Democracy bumps into things in darkness."
+		description: "Our latest writer-to-website garbage."
 	});
 });
 
@@ -248,7 +106,7 @@ app.get("/search", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
 	return render("search.ejs", req, {
-		articles,
+		articles: data.articles,
 
 		query: req.query.q
 	});
@@ -258,13 +116,14 @@ app.get("/series", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
 	return render("series.ejs", req, {
-		series
+		articles: data.articles,
+		series: data.series
 	});
 });
 
 app.get("/series/:series", (req, res) => {
 	// console.log(series);
-	if (!(req.params.series in mapped_series)) {
+	if (!(req.params.series in data.mapped_series)) {
 		res.type("text/html").code(404);
 		return render("404.ejs", req, {});
 	}
@@ -272,8 +131,9 @@ app.get("/series/:series", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
 	return render("series_section.ejs", req, {
-		series,
-		title: mapped_series[req.params.series]
+		articles: data.articles,
+		series: data.series,
+		title: data.mapped_series[req.params.series]
 	});
 });
 
@@ -281,7 +141,7 @@ app.get("/local", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
 	return render("section.ejs", req, {
-		articles,
+		articles: data.articles,
 		tag: "local",
 
 		title: "Local",
@@ -293,7 +153,7 @@ app.get("/politics", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
 	return render("section.ejs", req, {
-		articles,
+		articles: data.articles,
 		tag: "politics",
 
 		title: "Politics",
@@ -301,11 +161,29 @@ app.get("/politics", (req, res) => {
 	});
 });
 
+app.get("/topics", (req, res) => {
+	res.type("text/html").code(200);
+	push(req, res);
+	return render("topics.ejs", req, {
+		articles: data.articles,
+		topics: data.topics
+	});
+});
+
+app.get("/topic/:topic", (req, res) => {
+	res.type("text/html").code(200);
+	push(req, res);
+	return render("topic.ejs", req, {
+		articles: data.articles,
+		topic: req.params.topic
+	});
+});
+
 app.get("/culture", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
 	return render("section.ejs", req, {
-		articles,
+		articles: data.articles,
 		tag: "culture",
 
 		title: "Culture",
@@ -318,7 +196,7 @@ app.get("/best-of", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
 	return render("section.ejs", req, {
-		articles,
+		articles: data.articles,
 		tag: "best-of",
 
 		title: "Best Of",
@@ -330,8 +208,8 @@ app.get("/about", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
 	return render("about.ejs", req, {
-		people,
-		articles
+		people: data.people,
+		articles: data.articles
 	});
 });
 
@@ -346,7 +224,7 @@ app.get("/discord", (req, res) => {
 });
 
 app.get("/article/:slug", (req, res) => {
-	const article = articles.find(_ => _.slug === req.params.slug);
+	const article = data.articles.find(_ => _.slug === req.params.slug);
 	push(req, res);
 	if (!article) {
 		res.type("text/html").code(404);
@@ -357,12 +235,14 @@ app.get("/article/:slug", (req, res) => {
 	switch (article.type) {
 		case "article":
 			return render("article.ejs", req, {
-				article
+				article,
+				articles: data.articles
 			});
 
 		case "quiz":
 			return render("quiz.ejs", req, {
-				quiz: article
+				quiz: article,
+				articles: data.articles
 			});
 
 		default:
@@ -372,8 +252,8 @@ app.get("/article/:slug", (req, res) => {
 
 app.get("/query", (req, res) => {
 	if (typeof req.query.q !== "string") return {error: "query parameter 'q' must be string!"}
-
-	const articles = queryArticles(req.query.q).sort((a, b) => b.date_js - a.date_js, 0).map(_ => ({
+	
+	const articles = utils.sortByDate(utils.queryArticles(data.articles, req.query.q)).map(_ => ({
 		slug: _.slug,
 		title: _.title,
 		authors: _.authors,
@@ -386,7 +266,7 @@ app.get("/query", (req, res) => {
 app.get("/sitemap.xml", (req, res) => {
 	res.type("text/xml").code(200);
 	return render("sitemap.ejs", req, {
-		articles
+		articles: data.articles
 	});
 });
 

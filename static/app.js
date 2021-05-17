@@ -1,3 +1,5 @@
+if (document.querySelector("nav .active")) document.querySelector("nav .active").parentElement.scrollTo(document.querySelector("nav .active").offsetLeft - document.querySelector("nav .active").offsetWidth, 0)
+
 function randomAd(idx) {
 	var ad = document.createElement("a");
 	var adImg = document.createElement("img");

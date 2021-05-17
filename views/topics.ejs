@@ -1,0 +1,24 @@
+<%- include("./partials/head.ejs", {title: "Topics", dark}) %>
+
+<%- include("./partials/nav.ejs") %>
+
+<main>
+	<div id="top_right">
+		<%- include("./partials/search.ejs") %>
+		<%- include("./partials/art.ejs") %>
+	</div>
+	
+	<h2>Topics</h2>
+	
+	<p class="tagline">Take a deep dive into our stupid opinions.</p>
+	
+	<div class="topics">
+		<% for (const s of topics) { %>
+			<a href="/topic/<%= s %>">
+				<h3><%= slugToTitle(s) %></h3>
+			</a>
+		<% } %>
+	</div>
+</main>
+
+<%- include("./partials/footer.ejs") %>

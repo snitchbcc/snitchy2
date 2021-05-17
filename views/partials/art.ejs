@@ -1,5 +1,5 @@
 <div class="baron_art">
-	<% for (const art of getSeries("Cartoons And Artwork").slice(0, 3)) { %>
+	<% for (const art of getSeries(articles, "Cartoons And Artwork").slice(0, 3)) { %>
 		<a href="/article/<%- art.slug %>">
 			<img src="<%- art.thumbnail %>" alt="" loading="lazy">
 		</a>
