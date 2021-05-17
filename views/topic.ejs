@@ -10,7 +10,7 @@
 	
 	<h2 style="margin-bottom: 103px;"><%= slugToTitle(topic) %></h2>
 	
-	<%- include("./partials/articles.ejs", {articles: articles.filter(_ => _.tags.indexOf(topic) !== -1).sort((a, b) => b.date_js - a.date_js, 0), q: `:${topic}`, ads: true}) %>
+	<%- include("./partials/articles.ejs", {articles: articles.filter(_ => _.tags.indexOf(topic) !== -1).sort((a, b) => b.date_js - a.date_js, 0), q: `#${topic}`, ads: true}) %>
 </main>
 
 <script>const ads = <%- JSON.stringify(ad_list) %>;</script>
