@@ -90,7 +90,7 @@ app.get("/", (req, res) => {
 		tag: "featured",
 
 		title: "The Latest",
-		description: "Our latest writer-to-website garbage."
+		description: "No constraints, no limits, no standards."
 	});
 });
 
