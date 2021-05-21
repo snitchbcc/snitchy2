@@ -4,7 +4,7 @@
 <main>
 	<article class="quiz">
 		<h2><%- quiz.title %></h2>
-		<span><%- quiz.authors %> &bull; <%- months[quiz.date.month - 1] %> <%- quiz.date.day %>, <%- quiz.date.year %></span>
+		<span><%- quiz.authors %> &bull; <%- formatDate(quiz.date) %></span>
 			
 		<% if (quiz.thumbnail) { %>
 			<img src="<%- quiz.thumbnail %>" alt="Thumbnail for <%- quote(`"${quiz.title}"`) %>" class="quiz-thumbnail">
@@ -44,12 +44,12 @@
 
 				<p>This article is part of the <strong><%= quiz.series %></strong> series.</p>
 
-				<%- include("./partials/articles.ejs", {articles: getSeries(quiz.series).reverse(), q: `:${quiz.series}`}) %>
+				<%- include("./partials/articles.ejs", {articles: getSeries(articles, quiz.series).reverse(), q: `:${quiz.series}`}) %>
 			</section>
 		<% } %>
 
 		<h3>Recommended Articles</h3>
-		<%- include("./partials/articles.ejs", {articles: getRecommended(quiz)}) %>
+		<%- include("./partials/articles.ejs", {articles: getRecommended(articles, quiz)}) %>
 	</article>
 </main>
 
