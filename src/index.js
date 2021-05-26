@@ -12,6 +12,7 @@ const childProcess = require("child_process");
 
 const data = require("./data");
 const utils = require("./utils");
+const stats = require("./stats");
 const config = require("./config");
 const render = require("./render");
 const analogger = require("./analogger");
@@ -286,7 +287,6 @@ app.get("/content", async (req, res) => {
 });
 
 const url = require("url");
-const { getServers } = require("dns");
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
