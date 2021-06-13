@@ -22,6 +22,8 @@ function processArticles() {
 	module.exports.topics = new Set();
 	module.exports.series = JSON.parse(fs.readFileSync(path.join(articlesRoot, "series.json")).toString());
 	module.exports.mapped_series = {};
+
+	module.exports.ex_people = JSON.parse(fs.readFileSync(path.join(articlesRoot, "ex_people.json")).toString())
 	module.exports.people = JSON.parse(fs.readFileSync(path.join(articlesRoot, "people.json")).toString());
 
 	for (const ss of Object.keys(module.exports.series)) {

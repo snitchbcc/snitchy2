@@ -1,0 +1,28 @@
+<%- include("./partials/head.ejs", {title: "History", dark}) %>
+<%- include("./partials/nav.ejs") %>
+
+<main>
+	<h2>History</h2>
+
+	<p>
+		The Snitch was created by our founder Dale Bell in October 2019. Dale recruited many early Snitch members who remained throughout; Bill Angell, a skilled writer; Caleb Levy and Benjy Eichner, two talented editors; and Auguste Rame, the programmer behind The Snitch's website.
+	</p>
+
+	<p>
+		The Snitch went through a "dry phase" in late 2019 and early 2020, but then COVID-19 hit, which allowed us to flex our web muscles and go on a recruiting binge, leading to The Snitch and Snitch team we know today.
+	</p>
+
+	<h3>Our Ex-Staff</h3>
+
+	<div class="people">
+		<% for (const person of people) { %>
+			<div>
+				<h4><%- person.name %></h4>
+				<h5><%- person.tagline %></h5>
+				<p><%- person.description %></p>
+			</div>
+		<% } %>
+	</div>
+</main>
+
+<%- include("./partials/footer.ejs") %>

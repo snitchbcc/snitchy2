@@ -214,6 +214,14 @@ app.get("/about", (req, res) => {
 	});
 });
 
+app.get("/history", (req, res) => {
+	res.type("text/html").code(200);
+	push(req, res);
+	return render("history.ejs", req, {
+		people: data.ex_people
+	});
+});
+
 app.get("/contact", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
