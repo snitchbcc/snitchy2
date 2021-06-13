@@ -214,7 +214,7 @@ app.get("/about", (req, res) => {
 	});
 });
 
-app.get("/history", (req, res) => {
+app.get("/our-history", (req, res) => {
 	res.type("text/html").code(200);
 	push(req, res);
 	return render("history.ejs", req, {
