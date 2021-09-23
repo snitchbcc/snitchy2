@@ -94,21 +94,20 @@ body {
 		}
 
 		.nav {
-			&-title > img {
+			img {
 				filter: invert(0.8);
 			}
 
-			&-clickables {
-				background-color: black;
+			&-links {
+				& > * {
+					color: var(--body-color);
 
-				&-links {
-					& > * {
-						color: var(--body-color);
+					&.active {
+						padding: 2px 7px;
+
+						color: black;
+						background-color: var(--body-color);
 					}
-				}
-
-				&-socials > * {
-					filter: invert(0.8);
 				}
 			}
 		}
