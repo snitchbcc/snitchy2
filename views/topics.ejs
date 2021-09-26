@@ -12,10 +12,12 @@
 	
 	<p class="tagline">Take a deep dive into our stupid opinions.</p>
 	
-	<div class="topics">
+	<div class="topics card-grid scaled-3">
 		<% for (const s of topics) { %>
-			<a href="/topic/<%= s %>">
-				<h3><%= slugToTitle(s) %></h3>
+			<a href="/topic/<%= s %>" class="card">
+				<div class="body">
+					<h3 class="title"><%= slugToTitle(s) %></h3>
+				</div>
 			</a>
 		<% } %>
 	</div>

@@ -22,23 +22,24 @@ document.body.addEventListener("click", async event => {
 		}
 
 		let block = document.createElement("div");
-		block.classList.add("articles-list");
+		block.className = "articles-list card-grid scaled-3";
+		
 		let first;
 		for (const article of articles) {
 			const article_el = document.createElement("a");
 
+			article_el.className = "card";
 			article_el.href = `/article/${article.slug}`;
 			if (article.tags.indexOf("cartoon") !== -1) article_el.className = "cartoon";
 			article_el.innerHTML =
 			`
-			${article.thumbnail ? `<img src="${article.thumbnail}" alt="Thumbnail for ${article.title}" loading="lazy">` : ""}
-			<div>
-				<h3>${article.title}</h3>
-				<span>${article.authors}</span>
+			${article.thumbnail ? `<img src="${article.thumbnail}" alt="Thumbnail for ${article.title}" loading="lazy" class="thumbnail">` : ""}
+			<div class="body">
+				<h3 class="title">${article.title}</h3>
+				<span class="subtitle">${article.authors}</span>
 			</div>
 			`;
 
-			// target.parentElement.children[0].appendChild(article_el);
 			block.appendChild(article_el);
 			
 			if (!first) first = article_el;
@@ -72,7 +73,6 @@ document.body.addEventListener("click", async event => {
 		let highest = {key: -10, value: -10};
 		for (const key in values) {
 			if (Object.hasOwnProperty.call(values, key)) {
-				// console.log(`${key}: ${values[key]/total * 100}`);
 				if (values[key] > highest.value) highest = {key: key, value: values[key]};
 				document.querySelector(`.quiz-result[data-score=${key}] .progress-fill`).style.width = `${values[key]/total * 100}%`;
 				document.querySelector(`.quiz-result[data-score=${key}] .progress-fill span`).innerText = `${Math.round(values[key]/total * 100)}%`;

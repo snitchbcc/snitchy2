@@ -18,12 +18,14 @@
 
 	<h3>Our Awesome Team</h3>
 
-	<div class="people">
+	<div class="people card-grid">
 		<% for (const person of people) { %>
-			<div>
-				<h4><%- person.name %></h4>
-				<h5><%- person.tagline %></h5>
-				<p><%- person.description %></p>
+			<div class="card">
+				<div class="body">
+					<h4 class="title"><%- person.name %></h4>
+					<h5 class="subtitle"><%- person.tagline %></h5>
+					<p class="excerpt"><%- person.description %></p>
+				</div>
 			</div>
 		<% } %>
 	</div>

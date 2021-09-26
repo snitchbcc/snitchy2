@@ -24,8 +24,12 @@
 			</section>
 		<% } %>
 
-		<h3>Recommended Articles</h3>
-		<%- include("./partials/articles.ejs", {articles: getRecommended(articles, article)}) %>
+		<section class="article-recommended">
+			<h3>Recommended Articles</h3>
+
+
+			<%- include("./partials/articles.ejs", {articles: getRecommended(articles, article)}) %>
+		</section>
 	</article>
 </main>
 

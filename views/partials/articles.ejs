@@ -1,18 +1,18 @@
 <section class="articles" data-ads="<%- typeof ads === 'undefined' ? 'no' : (ads ? 'yes' : 'no') %>" data-q="<%- typeof q === 'undefined' ? '' : q %>">
-	<div class="articles-list">
+	<div class="articles-list card-grid scaled-3">
 		<% for (const article of
 				articles.slice(0, 6)
 			) { %>
-			<a href="/article/<%- article.slug %>"<%- article.tags.indexOf('cartoon') !== -1 ? ' class="cartoon"' : ''  %>>
+			<a href="/article/<%- article.slug %>"<%- article.tags.indexOf('cartoon') !== -1 ? ' class="cartoon"' : ''  %> class="card">
 				<% if (article.ribbon) { %>
 					<span class="ribbon"><%- article.ribbon %></span>
 				<% } %>
 				<% if (article.thumbnail) { %>
-					<img src="<%- article.thumbnail %>" alt="Thumbnail for <%- quote(`"${article.title}"`) %>" loading="lazy">
+					<img src="<%- article.thumbnail %>" alt="Thumbnail for <%- quote(`"${article.title}"`) %>" loading="lazy" class="thumbnail">
 				<% } %>
-				<div>
-					<h3><%- article.title %></h3>
-					<span><%- article.authors %></span>
+				<div class="body">
+					<h3 class="title"><%- article.title %></h3>
+					<span class="subtitle"><%- article.authors %></span>
 				</div>
 			</a>
 		<% } %>
