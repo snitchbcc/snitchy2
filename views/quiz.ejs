@@ -18,8 +18,12 @@
                     <h3><%= question.prompt %></h3>
         
                     <div class="quiz-choices">
-                        <% for (const [i, answer] of shuffle(question.answers).entries()) { %>        
-                            <div data-score="<%= answer.score %>"><span><%= String.fromCharCode(65+i) %></span> <span><%= answer.text %></span></div>
+                        <% for (const [i, answer] of shuffle(question.answers).entries()) { %>     
+                            <% if (quiz.data.style === "single-point") { %>
+                                <div data-score="<%= answer.score %>"><span><%= String.fromCharCode(65+i) %></span> <span><%= answer.text %></span></div>
+                            <% } else if (quiz.data.style === "mcq") { %>
+                                <div<%- answer.correct ? ` class="correct"` : ''%>><span><%= String.fromCharCode(65+i) %></span> <span><%= answer.text %></span></div>
+                            <% } %>
                         <% } %>
                     </div>
                 </div>
@@ -27,14 +31,22 @@
         </section>
 
         <div class="quiz-results">
-            <h3 class="quiz-results-title">You're []</h3>
+            <% if (quiz.data.style === "single-point") { %>
+                <h3 class="quiz-results-title">You're []</h3>
 
-            <p class="quiz-results-description">...</p>
+                <p class="quiz-results-description">...</p>
 
-            <% for (const result of Object.keys(quiz.data.results)) { %>
-                <div class="quiz-result" data-score="<%= result %>">
-                    <span><%= quiz.data.results[result].title %></span> <div class="progress"><div class="progress-fill" style="width: 50%;"><span>50%</span></div></div>
-                </div>
+                <% for (const result of Object.keys(quiz.data.results)) { %>
+                    <div class="quiz-result" data-score="<%= result %>">
+                        <span><%= quiz.data.results[result].title %></span> <div class="progress"><div class="progress-fill" style="width: 50%;"><span>50%</span></div></div>
+                    </div>
+                <% } %>
+            <% } else if (quiz.data.style === "mcq") { %>
+                <div class="progress"><div class="progress-fill" style="width: 50%;"><span>50%</span></div></div>
+
+                <h3 class="quiz-results-title">You're []</h3>
+
+                <p class="quiz-results-description">...</p>
             <% } %>
         </div>
 

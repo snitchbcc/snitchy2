@@ -56,33 +56,58 @@ document.body.addEventListener("click", async event => {
 			top: -40
 		});
 	} else if (target.closest(".quiz-choices>*")) {
-		[...target.closest(".quiz-choices").children].map(_ => _.classList.remove("selected"));
-		target.closest(".quiz-choices>*").classList.add("selected");
+		if (quiz.style === "single-point") {
+			[...target.closest(".quiz-choices").children].map(_ => _.classList.remove("selected"));
+			target.closest(".quiz-choices>*").classList.add("selected");
 
-		const all_qc = target.closest(".quiz").querySelectorAll(".quiz-choices");
-		let values = {};
-		for (const q of Object.keys(quiz.results)) values[q] = 0;
-		for (const a of all_qc) {
-			if (!a.querySelector(".quiz-choices .selected")) return;
-			else {
-				values[a.querySelector(".selected").getAttribute("data-score")] += 1;
+			const all_qc = target.closest(".quiz").querySelectorAll(".quiz-choices");
+			let values = {};
+			for (const q of Object.keys(quiz.results)) values[q] = 0;
+			for (const a of all_qc) {
+				if (!a.querySelector(".quiz-choices .selected")) return;
+				else {
+					values[a.querySelector(".selected").getAttribute("data-score")] += 1;
+				}
 			}
-		}
 
-		const total = quiz.style === "single-point" ? quiz.questions.length : undefined;
-		let highest = {key: -10, value: -10};
-		for (const key in values) {
-			if (Object.hasOwnProperty.call(values, key)) {
-				if (values[key] > highest.value) highest = {key: key, value: values[key]};
-				document.querySelector(`.quiz-result[data-score=${key}] .progress-fill`).style.width = `${values[key]/total * 100}%`;
-				document.querySelector(`.quiz-result[data-score=${key}] .progress-fill span`).innerText = `${Math.round(values[key]/total * 100)}%`;
+			const total = quiz.questions.length;
+			let highest = {key: -10, value: -10};
+			for (const key in values) {
+				if (Object.hasOwnProperty.call(values, key)) {
+					if (values[key] > highest.value) highest = {key: key, value: values[key]};
+					document.querySelector(`.quiz-result[data-score=${key}] .progress-fill`).style.width = `${values[key]/total * 100}%`;
+					document.querySelector(`.quiz-result[data-score=${key}] .progress-fill span`).innerText = `${Math.round(values[key]/total * 100)}%`;
+				}
 			}
+
+			document.querySelector(".quiz-results-title").innerText = quiz.results[highest.key].title;
+			document.querySelector(".quiz-results-description").innerText = quiz.results[highest.key].description;
+
+			target.closest(".quiz").querySelector(".quiz-results").classList.add("visible");
+		} else if (quiz.style === "mcq") {
+			[...target.closest(".quiz-choices").children].map(_ => _.classList.remove("selected"));
+			target.closest(".quiz-choices>*").classList.add("selected");
+			
+			const percentCorrect = [...target.closest(".quiz").querySelectorAll(".quiz-choices .selected.correct")].length / quiz.questions.length;
+
+			document.querySelector(`.progress-fill`).style.width = `${percentCorrect * 100}%`;
+			document.querySelector(`.progress-fill span`).innerText = `${Math.round(percentCorrect * 100)}%`;
+
+			let fit;
+
+			for (const result of quiz.results) {
+				if (percentCorrect * 100 >= result.min) {
+					fit = result;
+					break;
+				}
+			}
+
+			document.querySelector(".quiz-results-title").innerText = fit.title;
+			document.querySelector(".quiz-results-description").innerText = fit.description;
+
+			if ([...target.closest(".quiz").querySelectorAll(".quiz-choices .selected")].length === quiz.questions.length)
+				target.closest(".quiz").querySelector(".quiz-results").classList.add("visible");
 		}
-
-		document.querySelector(".quiz-results-title").innerText = quiz.results[highest.key].title;
-		document.querySelector(".quiz-results-description").innerText = quiz.results[highest.key].description;
-
-		target.closest(".quiz").querySelector(".quiz-results").classList.add("visible");
 	} else if (target.id === "theme_switcher") {
 		document.body.classList.toggle("dark");
 		if (target.innerText === "🌕") {
