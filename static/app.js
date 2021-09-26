@@ -91,7 +91,7 @@ document.body.addEventListener("click", async event => {
 			const percentCorrect = [...target.closest(".quiz").querySelectorAll(".quiz-choices .selected.correct")].length / quiz.questions.length;
 
 			document.querySelector(`.progress-fill`).style.width = `${percentCorrect * 100}%`;
-			document.querySelector(`.progress-fill span`).innerText = `${Math.round(percentCorrect * 100)}%`;
+			document.querySelector(`.percentage`).innerText = `${Math.round(percentCorrect * 100)}%`;
 
 			let fit;
 

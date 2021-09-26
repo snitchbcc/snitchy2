@@ -30,7 +30,7 @@
             <% } %>
         </section>
 
-        <div class="quiz-results">
+        <div class="quiz-results <%= quiz.data.style %>">
             <% if (quiz.data.style === "single-point") { %>
                 <h3 class="quiz-results-title">You're []</h3>
 
@@ -42,11 +42,16 @@
                     </div>
                 <% } %>
             <% } else if (quiz.data.style === "mcq") { %>
-                <div class="progress"><div class="progress-fill" style="width: 50%;"><span>50%</span></div></div>
+                <div>
+                    <h3 class="percentage">50%</h3>
+                    <div class="progress"><div class="progress-fill" style="width: 50%;"></div></div>
+                </div>
 
-                <h3 class="quiz-results-title">You're []</h3>
+                <div>
+                    <h3 class="quiz-results-title">You're []</h3>
 
-                <p class="quiz-results-description">...</p>
+                    <p class="quiz-results-description">...</p>
+                </div>
             <% } %>
         </div>
 

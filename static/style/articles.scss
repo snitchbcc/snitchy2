@@ -211,9 +211,66 @@
 
         &.visible {
             display: block;
+
+            &.mcq {
+                display: flex;
+
+                align-items: center;
+
+                border: 1px solid var(--body-color);
+                border-radius: 3px;
+
+                color: var(--body-color) !important;
+                text-decoration: none;
+
+                overflow: hidden;
+                box-shadow: 4px 4px 0px var(--body-color);
+
+                & > div:first-child {
+                    width: 25%;
+                    min-width: 200px;
+
+                    padding: 30px;
+
+                    border-right: 1px solid var(--body-color);
+                }
+
+                & > div:last-child {
+                    width: 75%;
+
+                    padding: 30px;
+                }
+
+                .percentage {
+                    font-size: 50pt;
+                    font-feature-settings: "tnum", "ss01";
+                }
+
+                p {
+                    margin-bottom: 0;
+                }
+
+                .progress {
+                    width: 100%;
+                }
+
+                @media only screen and (max-width: 800px) {
+                    display: block;
+
+                    & > div {
+                        width: 100% !important;
+                        box-sizing: border-box;
+                    }
+
+                    & > div:first-child {
+                        border-right: 0;
+                        border-bottom: 1px solid var(--body-color);
+                    }
+                }
+            }
         }
 
-        & > h3 {
+        h3 {
             margin: 0;
         }
 
