@@ -64,7 +64,7 @@ app.register(require("fastify-multipart"));
 app.register(require("fastify-cookie"), {});
 
 app.addHook("onRequest", (req, res, next) => {
-	if (req.url.indexOf(".") !== -1) return next();
+	if (req.url.indexOf(".") !== -1 || req.url.indexOf("preview") !== -1) return next();
 	var sess = req.cookies.session || Math.random().toString(36).replace("0.", "");
 	if (!req.cookies.session) res.setCookie("session", sess, {path: "/"});
 	res.pouch = {ip: req.ip, session: sess};
@@ -92,6 +92,14 @@ app.get("/", (req, res) => {
 
 		title: "The Latest",
 		description: "No constraints, no limits, no standards."
+	});
+});
+
+app.get("/preview/:id", (req, res) => {
+	res.type("text/html").code(200);
+	push(req, res);
+	return render("preview.ejs", req, {
+		id: req.params.id
 	});
 });
 

@@ -1,0 +1,88 @@
+<%- include("./partials/head.ejs", {title: "Staging"}) %>
+<%- include("./partials/nav.ejs") %>
+
+<main>
+    <article>
+        <h2></h2>
+        <span></span>
+    </article>
+</main>
+
+<script>
+    function loadArticle(article) {
+        document.innerText = "Not implemented yet! Sorry :(";
+    }
+    
+    function loadQuiz(quiz) {
+        console.log(quiz);
+        window.quiz = quiz;
+        
+        document.querySelector("article").className = "quiz";
+        
+        document.querySelector("article>h2").innerText = quiz.title;
+        document.querySelector("article>span").innerText = quiz.authors;
+        
+        if (quiz.thumbnail) {
+            document.querySelector("article").innerHTML += `<img src="${quiz.thumbnail.replace("content://", "/content/")}" alt="Thumbnail for Quiz" class="quiz-thumbnail">`;
+        }
+        
+        const content = document.createElement("section");
+        content.className = "quiz-content";
+        
+        content.innerHTML += `<p>${quiz.description}</p>`;
+        for (const question of quiz.questions) {
+            content.innerHTML +=
+            `<div class="quiz-question">
+                <h3>${question.prompt}</h3>
+                
+                <div class="quiz-choices">
+                    ${question.answers.map((answer, i) =>
+                        quiz.style === "single-point" ? 
+                        `<div data-score="${answer.score}"><span>${String.fromCharCode(65+i)}</span> <span>${answer.text}</span></div>`
+                        :
+                        `<div${answer.correct ? ` class="correct"` : ''}><span>${String.fromCharCode(65+i)}</span> <span>${answer.text}</span></div>`
+                        ).join("")}
+                </div>
+            </div>`;
+        }
+            
+        content.innerHTML += `
+            <div class="quiz-results ${quiz.style}">
+                ${
+                    quiz.style === "single-point" ?
+                    `
+                    <h3 class="quiz-results-title">You're []</h3>
+                    
+                    <p class="quiz-results-description">...</p>
+
+                    ${
+                        Object.keys(quiz.results).map(result => `
+                    <div class="quiz-result" data-score="${result}">
+                        <span>${quiz.results[result].title}</span> <div class="progress"><div class="progress-fill" style="width: 50%;"><span>50%</span></div></div>
+                    </div>
+                    `).join("")
+                    }
+                    `
+                    :
+                    `
+                    <div>
+                        <h3 class="percentage">50%</h3>
+                        <div class="progress"><div class="progress-fill" style="width: 50%;"></div></div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="quiz-results-title">You're []</h3>
+                        
+                        <p class="quiz-results-description">...</p>
+                    </div>
+                    `
+                }
+        </div>`;
+            
+        document.querySelector("article").appendChild(content);
+    }
+</script>
+
+<script async src="https://script.google.com/a/macros/mcpsmd.net/s/AKfycbyS5hBIOTJM7kJbwGPJIaTGsSch2BX7B02Ap0PLeZ4/dev?id=<%= id %>"></script>
+
+<%- include("./partials/footer.ejs") %>
