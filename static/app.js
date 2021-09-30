@@ -30,7 +30,7 @@ document.body.addEventListener("click", async event => {
 
 			article_el.className = "card";
 			article_el.href = `/article/${article.slug}`;
-			if (article.tags.indexOf("cartoon") !== -1) article_el.className = "cartoon";
+			if (article.tags.indexOf("cartoon") !== -1) article_el.className = "card cartoon";
 			article_el.innerHTML =
 			`
 			${article.thumbnail ? `<img src="${article.thumbnail}" alt="Thumbnail for ${article.title}" loading="lazy" class="thumbnail">` : ""}
