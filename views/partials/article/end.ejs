@@ -1,0 +1,9 @@
+<% if (article.series) { %>
+    <%- include("./same_series.ejs", {article, articles}) %>
+<% } %>
+
+<%- include("./recommended.ejs", {article, articles}) %>
+
+<% if (authors.length !== 0) { %>
+    <%- include("./authors.ejs", {authors}) %>
+<% } %>
