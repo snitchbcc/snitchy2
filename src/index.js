@@ -253,12 +253,14 @@ app.get("/article/:slug", (req, res) => {
 		case "article":
 			return render("article.ejs", req, {
 				article,
+				authors: [...data.people, ...data.ex_people].filter(x => article.authors.includes(x.name)),
 				articles: data.articles
 			});
 
 		case "quiz":
 			return render("quiz.ejs", req, {
 				quiz: article,
+				authors: [...data.people, ...data.ex_people].filter(x => article.authors.includes(x.name)),
 				articles: data.articles
 			});
 
