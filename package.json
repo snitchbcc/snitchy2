@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "dev": "nodemon src/index.js -- --config=config/dev.ini --code=bananaslug",
+    "sass": "cd static && sass --watch style/style.scss:style.css --style compressed --no-source-map"
+  },
   "dependencies": {
     "ejs": "^3.1.3",
     "fastify": "^3.2.0",

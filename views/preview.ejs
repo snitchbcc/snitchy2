@@ -20,7 +20,7 @@
         document.querySelector("article").className = "quiz";
         
         document.querySelector("article>h2").innerText = quiz.title;
-        document.querySelector("article>span").innerText = quiz.authors;
+        document.querySelector("article>span").innerText = quiz.authors.join(", ");
         
         if (quiz.thumbnail) {
             document.querySelector("article").innerHTML += `<img src="${quiz.thumbnail.replace("content://", "/content/")}" alt="Thumbnail for Quiz" class="quiz-thumbnail">`;

@@ -46,7 +46,7 @@ module.exports = {
             return articles.filter(_ => _.series === query.slice(1));
         }
     
-        return articles.filter(_ => _.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 || _.authors.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+        return articles.filter(_ => _.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 || _.authors.join(", ").toLowerCase().indexOf(query.toLowerCase()) !== -1);
     },
     sortByDate(articles) {
         return articles.sort((a, b) => b.date_js - a.date_js, 0);

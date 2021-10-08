@@ -80,7 +80,9 @@ function processArticles() {
 							tags: fm.attributes.tags,
 							series: fm.attributes.series,
 							body: fm.body,
-							rendered: marked(fm.body)
+							rendered: marked(fm.body),
+
+							thumbnail_max_height: fm.attributes.thumbnail_max_height,
 						});
 						break;
 					default:
