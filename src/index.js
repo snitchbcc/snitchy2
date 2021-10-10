@@ -269,6 +269,21 @@ app.get("/article/:slug", (req, res) => {
 	}
 });
 
+app.get("/author/:slug", (req, res) => {
+	const author = [...data.people, ...data.ex_people].find(_ => utils.slugify(_.name) === req.params.slug);
+	push(req, res);
+	if (!author) {
+		res.type("text/html").code(404);
+		return render("404.ejs", req, {});
+	}
+
+	res.type("text/html").code(200);
+	return render("author.ejs", req, {
+		articles: data.articles,
+		author
+	});
+});
+
 app.get("/query", (req, res) => {
 	if (typeof req.query.q !== "string") return {error: "query parameter 'q' must be string!"}
 	

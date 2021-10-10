@@ -29,6 +29,9 @@ module.exports = {
     capitalize(word) {
         return word.slice(0, 1).toUpperCase() + word.slice(1);
     },
+    slugify(word) {
+        return word.toLowerCase().replace(/ /g, '-').replace(/\./g, '');
+    },
     slugToTitle(slug) {
         let title = "";
         for (const part of slug.split("-")) title += this.capitalize(part) + " ";
@@ -44,6 +47,8 @@ module.exports = {
             return articles.filter(_ => _.tags.indexOf(query.slice(1)) !== -1);
         } else if (query.startsWith(":")) {
             return articles.filter(_ => _.series === query.slice(1));
+        } else if (query.startsWith("@")) {
+            return articles.filter(_ => _.authors.includes(query.slice(1)));
         }
     
         return articles.filter(_ => _.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 || _.authors.join(", ").toLowerCase().indexOf(query.toLowerCase()) !== -1);

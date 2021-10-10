@@ -11,10 +11,24 @@ function randomAd(idx) {
 	return ad;
 }
 
+function updateArticleEnd(end) {
+	[...end.querySelectorAll(`.body>*`)].forEach(_ => _.classList.remove("active"));
+	const element = end.querySelector(".selected");
+	end.querySelector(`.article-end>.body>*:nth-child(${Array.from(element.parentNode.children).indexOf(element) + 1})`).classList.add("active");
+}
+
+if (document.querySelector(".article-end")) updateArticleEnd(document.querySelector(".article-end"));
+
 document.body.addEventListener("click", async event => {
 	const target = event.target;
 
-	if (target.classList.contains("articles-load_more")) {
+	if (target.closest(".article-end>.selection")) {
+		const parent = target.parentElement;
+		[...parent.children].forEach(_ => _.classList.remove("selected"));
+		target.classList.add("selected");
+		updateArticleEnd(target.parentElement.parentElement);
+		scrollTo(target);
+	} if (target.classList.contains("articles-load_more")) {
 		const articles = await (await fetch(`/query?q=${encodeURIComponent(target.parentElement.getAttribute("data-q"))}&g=${target.parentElement.querySelectorAll(".articles-list").length}`)).json();
 		if (!articles.length) {
 			target.remove();
@@ -57,7 +71,7 @@ document.body.addEventListener("click", async event => {
 		});
 	} else if (target.closest(".quiz-choices>*")) {
 		if (quiz.style === "single-point") {
-			[...target.closest(".quiz-choices").children].map(_ => _.classList.remove("selected"));
+			[...target.closest(".quiz-choices").children].forEach(_ => _.classList.remove("selected"));
 			target.closest(".quiz-choices>*").classList.add("selected");
 
 			const all_qc = target.closest(".quiz").querySelectorAll(".quiz-choices");
@@ -85,7 +99,7 @@ document.body.addEventListener("click", async event => {
 
 			target.closest(".quiz").querySelector(".quiz-results").classList.add("visible");
 		} else if (quiz.style === "mcq") {
-			[...target.closest(".quiz-choices").children].map(_ => _.classList.remove("selected"));
+			[...target.closest(".quiz-choices").children].forEach(_ => _.classList.remove("selected"));
 			target.closest(".quiz-choices>*").classList.add("selected");
 			
 			const percentCorrect = [...target.closest(".quiz").querySelectorAll(".quiz-choices .selected.correct")].length / quiz.questions.length;

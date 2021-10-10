@@ -18,17 +18,7 @@
 
 	<h3>Our Awesome Team</h3>
 
-	<div class="people card-grid">
-		<% for (const person of people) { %>
-			<div class="card">
-				<div class="body">
-					<h4 class="title"><%- person.name %></h4>
-					<h5 class="subtitle"><%- person.tagline %></h5>
-					<p class="excerpt"><%- person.description %></p>
-				</div>
-			</div>
-		<% } %>
-	</div>
+	<%- include("./partials/people.ejs", {people}) %>
 </main>
 
 <%- include("./partials/footer.ejs") %>

@@ -1,6 +1,4 @@
 <section class="article-series">
-    <h3>Articles In The Same Series</h3>
-
     <p>This article is part of the <strong><%= article.series %></strong> series.</p>
 
     <%- include("../articles.ejs", {articles: getSeries(articles, article.series).reverse(), q: `:${article.series}`}) %>

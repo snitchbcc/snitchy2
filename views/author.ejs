@@ -1,0 +1,15 @@
+<%- include("./partials/head.ejs", {title: "About", dark}) %>
+<%- include("./partials/nav.ejs") %>
+
+<main>
+	<h2 style="margin-bottom: 0; line-height: 1;"><%- author.name %></h2>
+    <h3 class="subtitle" style="margin-top: 20px; font-size: 20pt;"><%- author.tagline %></h3>
+	
+    <p class="tagline"><%- author.description %></p>
+
+	<%- include("./partials/articles.ejs", {articles: articles.filter(_ => _.authors.includes(author.name)).sort((a, b) => b.date_js - a.date_js, 0), q: `@${author.name}`, ads: true}) %>
+</main>
+
+<script>const ads = <%- JSON.stringify(ad_list) %>;</script>
+<script>const ad_links = <%- JSON.stringify(ad_links) %>;</script>
+<%- include("./partials/footer.ejs") %>

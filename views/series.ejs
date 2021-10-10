@@ -14,7 +14,7 @@
 	
 	<div class="series card-grid scaled-3">
 		<% for (const s of Object.keys(series)) { %>
-			<a href="/series/<%= s.toLowerCase().replace(/ /g, '-') %>" class="card">
+			<a href="/series/<%= slugify(s) %>" class="card">
 				<div class="body">
 					<h3 class="title"><%= s %></h3>
 

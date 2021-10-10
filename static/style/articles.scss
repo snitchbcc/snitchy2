@@ -330,3 +330,41 @@
         }
     }
 }
+
+.article-end {
+    margin-top: 80px;
+
+    & > .selection {
+        display: block;
+
+        margin-bottom: 20px;
+
+        &:hover > *:not(:hover) {
+            color: var(--body-disabled-color);
+        }
+
+        & > * {
+            display: inline-block;
+
+            margin-right: 40px;
+
+            color: var(--body-disabled-color);
+            font-size: 30pt;
+            font-weight: 700;
+
+            cursor: pointer;
+            transition: 0.2s color;
+
+            &.selected,
+            &:hover {
+                color: var(--body-color);
+            }
+        }
+    }
+
+    & > .body {
+        & > *:not(.active) {
+            display: none;
+        }
+    }
+}

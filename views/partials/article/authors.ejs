@@ -1,15 +1,3 @@
 <section class="article-authors">
-    <h3>Authors</h3>
-
-    <div class="people card-grid">
-        <% for (const person of authors) { %>
-            <div class="card">
-                <div class="body">
-                    <h4 class="title"><%- person.name %></h4>
-                    <h5 class="subtitle"><%- person.tagline %></h5>
-                    <p class="excerpt"><%- person.description %></p>
-                </div>
-            </div>
-        <% } %>
-    </div>
+    <%- include("../people.ejs", {people: authors}) %>
 </section>

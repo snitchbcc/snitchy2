@@ -1,9 +1,19 @@
-<% if (article.series) { %>
-    <%- include("./same_series.ejs", {article, articles}) %>
-<% } %>
+<section class="article-end">
+    <div class="selection">
+        <span class="selected">Recommended</span>
+        <% if (article.series) { %><span>Series</span><% } %>
+        <% if (authors.length !== 0) { %><span>Authors</span><% } %>
+    </div>
 
-<%- include("./recommended.ejs", {article, articles}) %>
+    <div class="body">
+        <%- include("./recommended.ejs", {article, articles}) %>
 
-<% if (authors.length !== 0) { %>
-    <%- include("./authors.ejs", {authors}) %>
-<% } %>
+        <% if (article.series) { %>
+            <%- include("./same_series.ejs", {article, articles}) %>
+        <% } %>
+                
+        <% if (authors.length !== 0) { %>
+            <%- include("./authors.ejs", {authors}) %>
+        <% } %>        
+    </div>
+</section>
