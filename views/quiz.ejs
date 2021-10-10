@@ -1,10 +1,10 @@
-<%- include("./partials/head.ejs", {title: quiz.title, image: quiz.thumbnail, authors: quiz.authors.join(", "), description: quiz.description, dark}) %>
+<%- include("./partials/head.ejs", {title: quiz.title, image: quiz.thumbnail, authors: quiz.authorsText, description: quiz.description, dark}) %>
 <%- include("./partials/nav.ejs") %>
 
 <main>
 	<article class="quiz">
 		<h2><%- quiz.title %></h2>
-		<span><%- quiz.authors.join(", ") %> &bull; <%- formatDate(quiz.date) %></span>
+		<span><%- quiz.authorsText %> &bull; <%- formatDate(quiz.date) %></span>
 			
 		<% if (quiz.thumbnail) { %>
 			<img src="<%- quiz.thumbnail %>" alt="Thumbnail for <%- quote(`"${quiz.title}"`) %>" class="quiz-thumbnail">

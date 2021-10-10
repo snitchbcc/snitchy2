@@ -42,7 +42,10 @@ function processArticles() {
 
 							slug: article.slice(0, article.length - 5),
 							title: data.title,
+
 							authors: data.authors,
+							authorsText: data.authors_text || data.authors.join(", "),
+
 							description: data.description,
 							tags: data.tags,
 							series: data.series,
@@ -67,7 +70,10 @@ function processArticles() {
 
 							slug: article.slice(0, article.length - 3),
 							title: fm.attributes.title,
+							
 							authors: fm.attributes.authors,
+							authorsText: fm.attributes.authors_text || fm.attributes.authors.join(", "),
+
 							description: fm.attributes.description,
 							date: {
 								year: parseInt(year),

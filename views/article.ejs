@@ -1,10 +1,10 @@
-<%- include("./partials/head.ejs", {title: article.title, image: article.thumbnail, authors: article.authors.join(", "), description: article.description ? article.description : article.body.slice(0, 500), dark}) %>
+<%- include("./partials/head.ejs", {title: article.title, image: article.thumbnail, authors: article.authorsText, description: article.description ? article.description : article.body.slice(0, 500), dark}) %>
 <%- include("./partials/nav.ejs") %>
 
 <main>
 	<article class="article">
 		<h2><%- article.title %></h2>
-		<span><%- article.authors.join(", ") %> &bull; <%- formatDate(article.date) %></span>
+		<span><%- article.authorsText %> &bull; <%- formatDate(article.date) %></span>
 			
 		<% if (article.thumbnail) { %>
 			<img src="<%- article.thumbnail %>" alt="Thumbnail for <%- quote(`"${article.title}"`) %>" class="article-thumbnail">
