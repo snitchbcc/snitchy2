@@ -291,6 +291,7 @@ app.get("/query", (req, res) => {
 		slug: _.slug,
 		title: _.title,
 		authors: _.authors,
+		authorsText: _.authorsText,
 		thumbnail: _.thumbnail,
 		tags: _.tags
 	}));

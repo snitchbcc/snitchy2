@@ -50,7 +50,7 @@ document.body.addEventListener("click", async event => {
 			${article.thumbnail ? `<img src="${article.thumbnail}" alt="Thumbnail for ${article.title}" loading="lazy" class="thumbnail">` : ""}
 			<div class="body">
 				<h3 class="title">${article.title}</h3>
-				<span class="subtitle">${article.authors.join(", ")}</span>
+				<span class="subtitle">${article.authorsText}</span>
 			</div>
 			`;
 
