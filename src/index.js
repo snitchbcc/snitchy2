@@ -395,7 +395,7 @@ app.setNotFoundHandler((req, res) => {
 	return render("404.ejs", req, {});
 });
 
-app.listen(config().port, "0.0.0.0", (err, address) => {
+app.listen(config().port, config().host || "0.0.0.0", (err, address) => {
 	if (err) {
 		console.error(err);
 		process.exit(1);
