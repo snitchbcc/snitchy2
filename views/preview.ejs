@@ -23,7 +23,7 @@
         document.querySelector("article>span").innerText = quiz.authors.join(", ");
         
         if (quiz.thumbnail) {
-            document.querySelector("article").innerHTML += `<img src="${quiz.thumbnail.replace("content://", "/content/")}" alt="Thumbnail for Quiz" class="quiz-thumbnail">`;
+            document.querySelector("article").innerHTML += `<img src="${quiz.thumbnail.replace("content://", "https://images.snitchbcc.com/")}" alt="Thumbnail for Quiz" class="quiz-thumbnail">`;
         }
         
         const content = document.createElement("section");

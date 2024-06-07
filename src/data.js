@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const marked = require("marked");
 const frontMatter = require("front-matter");
+const childProcess = require("child_process");
 
 const articlesRoot = path.join(__dirname, "..", "data", "articles");
 
@@ -49,7 +50,7 @@ function processArticles() {
 							description: data.description,
 							tags: data.tags,
 							series: data.series,
-							thumbnail: data.thumbnail ? (data.thumbnail.startsWith("content://") ? `/content/${data.thumbnail.slice(10)}` : data.thumbnail) : undefined,
+							thumbnail: data.thumbnail ? (data.thumbnail.startsWith("content://") ? `https://images.snitchbcc.com/${data.thumbnail.slice(10)}` : data.thumbnail) : undefined,
 
 							date: {
 								year: parseInt(year),
@@ -81,7 +82,7 @@ function processArticles() {
 								day: fm.attributes.date
 							},
 							ribbon: fm.attributes.ribbon,
-							thumbnail: fm.attributes.thumbnail ? (fm.attributes.thumbnail.startsWith("content://") ? `/content/${fm.attributes.thumbnail.slice(10)}` : fm.attributes.thumbnail) : undefined,
+							thumbnail: fm.attributes.thumbnail ? (fm.attributes.thumbnail.startsWith("content://") ? `https://images.snitchbcc.com/${fm.attributes.thumbnail.slice(10)}` : fm.attributes.thumbnail) : undefined,
 							date_js: new Date(parseInt(year), parseInt(month)-1, fm.attributes.date),
 							tags: fm.attributes.tags,
 							series: fm.attributes.series,
